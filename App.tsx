@@ -1,20 +1,24 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { PaperProvider } from "react-native-paper";
+import { Provider } from "react-redux";
+import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
+import MainAppNavigation from "./app/modules/navigation/MainAppNavigation";
+import store from "./app/modules/main/src/configureStore";
 
-export default function App() {
+if(__DEV__) {
+  import("./ReactotronConfig")
+}
+
+const App = ()=> {
+  const queryClient = new QueryClient();
   return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <Provider store={store}>
+      <QueryClientProvider client={queryClient}>
+        <PaperProvider>
+          <MainAppNavigation />
+        </PaperProvider>
+      </QueryClientProvider>
+    </Provider>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+export default App;
