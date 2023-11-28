@@ -6,7 +6,7 @@ import {
 } from "react-native";
 import MainSafeAreaScreen from "../../main/view/MainSafeAreaScreen";
 import { COLORS, SIZES, } from "../../main/src/mainConstants";
-import ClarkBoldText from "../../../components/ClarkBoldText";
+import AppBoldText from "../../../components/AppBoldText";
 import ClarkIcon from "../../../components/ClarkIcon";
 import AppBodyText from "../../../components/AppBodyText";
 import ClarkRatting from "../../../components/ClarkRatting";
@@ -73,14 +73,14 @@ const ProductLisDetailsScreen = (props: NativeStackScreenProps<ProductLisDetails
 
   const renderProductDescription = () => (
     <View style={styles.productDescriptionView}>
-      <ClarkBoldText variant={"titleMedium"} title={product.title} />
+      <AppBoldText variant={"titleMedium"} title={product.title} />
       <AppBodyText
         style={styles.body}
         variant={"bodyMedium"}
         title={product.category}
       />
       {renderProductRatting()}
-      <ClarkBoldText style={styles.descriptionTitle} title={"Description"} />
+      <AppBoldText style={styles.descriptionTitle} title={"Description"} />
       <AppBodyText
         style={styles.description}
         variant={"bodyMedium"}
@@ -97,7 +97,7 @@ const ProductLisDetailsScreen = (props: NativeStackScreenProps<ProductLisDetails
           variant={"bodySmall"}
           title={"Total Price"}
         />
-        <ClarkBoldText title={`$${product.price}`} variant={"titleMedium"} />
+        <AppBoldText title={`$${product.price}`} variant={"titleMedium"} />
       </View>
       <ClarkButton label={"Add to Cart"} icon="cart" oPress={() => incrementAction()} />
     </View>
