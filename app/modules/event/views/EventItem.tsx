@@ -1,67 +1,118 @@
-import { View, StyleSheet,Image } from 'react-native'
-import React from 'react'
-import { COLORS, SIZES } from '../../main/src/mainConstants';
-import AppBodyText from '../../../components/AppBodyText';
-import AppBoldText from '../../../components/AppBoldText';
-
+import { View, Image, StyleSheet, TouchableOpacity } from "react-native";
+import React from "react";
+import { COLORS, SIZES } from "../../main/src/mainConstants";
+import AppBodyText from "../../../components/AppBodyText";
+import AppBoldText from "../../../components/AppBoldText";
+import { Card, Text } from "react-native-paper";
 
 interface EventListItemProps {
   title: string;
   body: string;
   image: string;
+  type: string;
+  country: string;
   onPress?: () => void;
 }
 
-const EventItem = (props: EventListItemProps)=> {
+
+
+const EventItem = (props: EventListItemProps) => {
+
+  const renderLeftComponent = () => (
+    <View
+    style={styles.leftComponents}>
+    <Text
+      style={{
+        color: COLORS.white,
+        marginStart: 10,
+        marginTop: 5,
+        textAlign: 'right',
+      }}>
+      {props.type}
+    </Text>
+  </View>
+  );
+
   return (
-    <View style={styles.container}>
-      <Image
-       style={styles.image} 
-       resizeMode='cover'
-       source={{uri:props.image}} />
-       <View style={styles.body}>
+    <TouchableOpacity  onPress={props.onPress}>
+      <Card style={styles.container}>
+        <Card.Content style={styles.body}>
+        <Image
+          style={styles.image}
+          resizeMode={"cover"}
+          source={{ uri: props.image }}
+        />
+        <View style={styles.bodyContent}>
+        <AppBoldText
+            style={styles.titleText}
+            numberOfLines={2}
+            title={props.title}
+          />
           <AppBodyText
-          variant={"bodySmall"}
-          title={props.title}
-          style={styles.titleText}
+            style={styles.bodyText}
+            numberOfLines={3}
+            title={props.body}
           />
-          <AppBoldText
-          variant={"bodyLarge"}
-          title={props.body}
-          style={styles.bodyText}
+           <AppBodyText
+            style={styles.timeZoneText}
+            numberOfLines={1}
+            title={props.country}
           />
-       </View>
-    </View>
-  )
-}
+        </View>
+         
+        </Card.Content>
+      </Card>
+      {renderLeftComponent()}
+    </TouchableOpacity>
+  );
+};
 
 const styles = StyleSheet.create({
   container: {
     backgroundColor: COLORS.white,
-    flexDirection: "row",
     borderRadius: SIZES.S_8,
-    marginHorizontal: SIZES.S_5,
-
+    marginVertical: SIZES.S_2,
+    marginHorizontal: SIZES.S_3,
+    
   },
   image: {
-    width: 90,
-    height: 120,
+    width: 105,
+    height: 105,
     borderRadius: SIZES.S_8,
-    marginVertical: SIZES.S_4,
     marginHorizontal: SIZES.S_4,
   },
   titleText: {
+    marginEnd: SIZES.S_2,
+
+  },
+  bodyText: {
+    marginEnd: SIZES.S_2,
     color: COLORS.primary,
-    marginEnd: SIZES.S_2,
+    marginTop: SIZES.S_2,
   },
-  bodyText:{
+  timeZoneText: {
     marginEnd: SIZES.S_2,
+    color: COLORS.gray,
+    marginTop: SIZES.S_2,
   },
-  body:{
-    marginVertical: SIZES.S_4,
-    marginHorizontal: SIZES.S_4,
-  }
-  
+  body: {
+    flexDirection: "row",
+  },
+  bodyContent: {
+    flex: 1,
+    justifyContent: 'center',  
+  },
+  leftComponents: {
+    position: 'absolute',
+    right: 5,
+    width: 60,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderTopRightRadius: 25,
+    borderBottomLeftRadius: 25,
+    backgroundColor: COLORS.primary,
+    height: 30,
+  },
 });
 
-export default  EventItem;
+export default EventItem;

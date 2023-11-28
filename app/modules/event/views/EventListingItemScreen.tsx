@@ -9,6 +9,7 @@ import {
   MainSafeAreaScreen,
   MainErrorsScreen,
 } from "../../main/view";
+import { navigateTo } from "../../navigation/RootNavigation";
 
 const EventListingItemScreen = () => {
   const { data, isLoading, isSuccess, isRefetching, refetch, error } =
@@ -19,13 +20,16 @@ const EventListingItemScreen = () => {
     setEvents(data._embedded.events);
   }, []);
 
+  
 
   const renderEvents = (item: any) => (
     <EventItem
-      onPress={() => console.log("pressed")}
+      onPress={() => navigateTo("EventListingItemDetails", { item })}
       title={item.name}
       image={item.images[0].url}
-      body={item.body}
+      body={item.promoter.description}
+      type={item.type}
+      country={item._embedded.venues[0].country.name}
     />
   );
 
@@ -74,6 +78,14 @@ const styles = StyleSheet.create({
   searchContainer: {},
   appSearch: {
     marginVertical: SIZES.S_5,
+    marginHorizontal: SIZES.S_5,
+    shadowColor: COLORS.black,
+    borderRadius: SIZES.S_8,
+    backgroundColor: COLORS.lightGrey,
+    shadowOffset: {
+      width: 0,
+      height: 5,
+    },
   },
 });
 
