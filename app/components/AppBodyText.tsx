@@ -5,7 +5,7 @@ import { VariantProp } from "react-native-paper/lib/typescript/components/Typogr
 
 interface AppBoldTextProps {
   title: string;
-  style?: ViewStyle;
+  style?: any;
   variant?: VariantProp<string>;
   numberOfLines?: number;
 }
@@ -17,6 +17,7 @@ const AppBodyText = (props: AppBoldTextProps) => {
 const styles = StyleSheet.create({
   text: {
     color: "black",
+    
   },
 });
 

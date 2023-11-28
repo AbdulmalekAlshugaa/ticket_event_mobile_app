@@ -2,10 +2,11 @@ import { StyleSheet, ViewStyle } from "react-native";
 import React from "react";
 import { Text } from "react-native-paper";
 import { VariantProp } from "react-native-paper/lib/typescript/components/Typography/types";
+import { COLORS } from "../modules/main/src/mainConstants";
 
 interface AppBoldTextProps {
   title: string;
-  style?: ViewStyle;
+  style?: any;
   variant?: VariantProp<string>;
   numberOfLines?: number;
 
@@ -18,7 +19,6 @@ const AppBoldText = (props: AppBoldTextProps) => {
 const styles = StyleSheet.create({
   text: {
     fontWeight: "bold",
-    color: "black",
   },
 });
 
