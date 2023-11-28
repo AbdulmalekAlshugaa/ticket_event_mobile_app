@@ -37,6 +37,7 @@ const EventListingItemDetailsScreen = () => {
 
   const renderEventDetails = () => (
     <View style={styles.productDescriptionView}>
+        <AppBoldText variant={"displaySmall"} style={styles.descriptionTitle} title={"International Band Music Concert"} />
       <AppBodyText style={styles.descriptionTitle} title={"Description"} />
       <AppBodyText
         style={styles.description}
@@ -74,7 +75,7 @@ const EventListingItemDetailsScreen = () => {
       <AppButton
         label={"Buy Now"}
         icon="ticket"
-        oPress={() => incrementAction()}
+        oPress={() => console.log("Buy Now")}
       />
     </View>
   );
@@ -133,6 +134,7 @@ const styles = StyleSheet.create({
   },
   descriptionTitle: {
     marginTop: SIZES.S_8,
+
   },
   description: {
     marginTop: SIZES.S_2,

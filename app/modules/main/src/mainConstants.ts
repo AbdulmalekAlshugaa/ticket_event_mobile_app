@@ -54,6 +54,6 @@ export const TYPOGRAPHY = {
   labelSmall: 'labelSmall',
 };
 
-const appTheme = { COLORS, SIZES,typography: TYPOGRAPHY };
+const appTheme = { COLORS, SIZES, TYPOGRAPHY };
 
 export default appTheme;
