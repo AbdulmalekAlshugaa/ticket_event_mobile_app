@@ -8,7 +8,7 @@ import MainSafeAreaScreen from "../../main/view/MainSafeAreaScreen";
 import { COLORS, SIZES, } from "../../main/src/mainConstants";
 import ClarkBoldText from "../../../components/ClarkBoldText";
 import ClarkIcon from "../../../components/ClarkIcon";
-import ClarkBodyText from "../../../components/ClarkBodyText";
+import AppBodyText from "../../../components/AppBodyText";
 import ClarkRatting from "../../../components/ClarkRatting";
 import ClarkButton from "../../../components/ClarkButton";
 import { useAppDispatch } from "../../main/src/configureStore";
@@ -61,7 +61,7 @@ const ProductLisDetailsScreen = (props: NativeStackScreenProps<ProductLisDetails
   const renderProductRatting = () => (
     <View style={styles.productRattingView}>
       <ClarkRatting rating={product.rating.rate} />
-      <ClarkBodyText
+      <AppBodyText
         style={{
           marginHorizontal: SIZES.S_7,
         }}
@@ -74,14 +74,14 @@ const ProductLisDetailsScreen = (props: NativeStackScreenProps<ProductLisDetails
   const renderProductDescription = () => (
     <View style={styles.productDescriptionView}>
       <ClarkBoldText variant={"titleMedium"} title={product.title} />
-      <ClarkBodyText
+      <AppBodyText
         style={styles.body}
         variant={"bodyMedium"}
         title={product.category}
       />
       {renderProductRatting()}
       <ClarkBoldText style={styles.descriptionTitle} title={"Description"} />
-      <ClarkBodyText
+      <AppBodyText
         style={styles.description}
         variant={"bodyMedium"}
         title={product.description}
@@ -92,7 +92,7 @@ const ProductLisDetailsScreen = (props: NativeStackScreenProps<ProductLisDetails
   const renderButton = () => (
     <View style={styles.buttonView}>
       <View>
-        <ClarkBodyText
+        <AppBodyText
           style={styles.body}
           variant={"bodySmall"}
           title={"Total Price"}

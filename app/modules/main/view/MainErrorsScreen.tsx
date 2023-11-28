@@ -1,11 +1,11 @@
 import { StyleSheet, View } from 'react-native'
 import React from 'react'
-import ClarkBodyText from '../../../components/ClarkBodyText'
+import AppBodyText from '../../../components/AppBodyText'
 
 const MainErrorsScreen = () => {
   return (
     <View style={styles.container}>
-      <ClarkBodyText
+      <AppBodyText
        title='Something went wrong. Please try again later.'
       />
     </View>

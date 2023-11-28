@@ -2,7 +2,7 @@ import { StyleSheet, TouchableOpacity } from "react-native";
 import React from "react";
 import { Card, Text } from "react-native-paper";
 import ClarkBoldText from "../../../components/ClarkBoldText";
-import ClarkBodyText from "../../../components/ClarkBodyText";
+import AppBodyText from "../../../components/AppBodyText";
 
 
 interface ProductListItemProps {
@@ -22,7 +22,7 @@ export default function ProductListItem(props: ProductListItemProps) {
           source={{ uri: props.image }}
         />
         <Card.Content>
-          <ClarkBodyText
+          <AppBodyText
             style={styles.text}
             numberOfLines={1}
             title={props.title}
