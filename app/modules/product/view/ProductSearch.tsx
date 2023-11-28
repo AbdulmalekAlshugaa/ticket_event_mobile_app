@@ -26,8 +26,6 @@ const ProductSearch = (props: ProductSearchProps) => {
         if (props.onFocus) { props.onFocus(); }
     };
 
-   
-
   return (
     <Searchbar
       value={inputString}
@@ -42,7 +40,6 @@ const ProductSearch = (props: ProductSearchProps) => {
     />
   );
 };
-
 
 const styles = StyleSheet.create({
   container: {
