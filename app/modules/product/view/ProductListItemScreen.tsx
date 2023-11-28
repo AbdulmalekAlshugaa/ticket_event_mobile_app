@@ -6,9 +6,9 @@ import MainSafeAreaScreen from "../../main/view/MainSafeAreaScreen";
 import { productActions } from "../src/productAction";
 import { useAppDispatch } from "../../main/src/configureStore";
 import MainLoadingScreen from "../../main/view/MainLoadingScreen";
-import ProductSearch from "./ProductSearch";
 import { useDebounce } from "../hooks/useDebounce";
 import MainErrorsScreen from "../../main/view/MainErrorsScreen";
+import AppSearch from "app/components/AppSearch";
 
 export default function ProductListItemScreen() {
   const { data, isLoading,  isSuccess, isRefetching, refetch,error} = useGetProducts();
@@ -47,7 +47,7 @@ export default function ProductListItemScreen() {
         <MainLoadingScreen />
       ) : isSuccess && data !== 'error'? (
         <MainSafeAreaScreen>
-          <ProductSearch
+          <AppSearch
             onChangeText={applySearch}
            />
           <FlatList

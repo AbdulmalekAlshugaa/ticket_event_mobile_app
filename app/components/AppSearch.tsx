@@ -1,17 +1,16 @@
-import { Platform, StyleSheet, View } from "react-native";
+import {  StyleSheet } from "react-native";
 import React, { useState } from 'react';
-import { Text, Searchbar } from "react-native-paper";
-import { COLORS, SIZES,  } from "../../main/src/mainConstants";
+import { Searchbar } from "react-native-paper";
+import { COLORS } from "app/modules/main/src/mainConstants";
 
-
-interface ProductSearchProps {
+interface AppSearchProps {
   inputString?: string;
   onChangeText?: (text: string) => void;
   onFocus?: () => void;
   onCancel?: () => void;
 }
 
-const ProductSearch = (props: ProductSearchProps) => {
+const AppSearch = (props: AppSearchProps) => {
     const [inputString, setInputString] = useState('');
     let inputRef: any = null;
 
@@ -50,4 +49,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ProductSearch;
+export default AppSearch;
