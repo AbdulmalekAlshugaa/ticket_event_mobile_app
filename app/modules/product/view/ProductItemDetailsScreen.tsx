@@ -10,7 +10,7 @@ import AppBoldText from "../../../components/AppBoldText";
 import ClarkIcon from "../../../components/ClarkIcon";
 import AppBodyText from "../../../components/AppBodyText";
 import ClarkRatting from "../../../components/ClarkRatting";
-import ClarkButton from "../../../components/ClarkButton";
+import AppButton from "../../../components/AppButton";
 import { useAppDispatch } from "../../main/src/configureStore";
 import { productActions } from "../src/productAction";
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
@@ -99,7 +99,7 @@ const ProductLisDetailsScreen = (props: NativeStackScreenProps<ProductLisDetails
         />
         <AppBoldText title={`$${product.price}`} variant={"titleMedium"} />
       </View>
-      <ClarkButton label={"Add to Cart"} icon="cart" oPress={() => incrementAction()} />
+      <AppButton label={"Add to Cart"} icon="cart" oPress={() => incrementAction()} />
     </View>
   );
 
