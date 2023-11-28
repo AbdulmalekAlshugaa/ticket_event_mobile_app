@@ -7,9 +7,9 @@ import {
 import MainSafeAreaScreen from "../../main/view/MainSafeAreaScreen";
 import { COLORS, SIZES, } from "../../main/src/mainConstants";
 import AppBoldText from "../../../components/AppBoldText";
-import ClarkIcon from "../../../components/ClarkIcon";
+import AppIcon from "../../../components/AppIcon";
 import AppBodyText from "../../../components/AppBodyText";
-import ClarkRatting from "../../../components/ClarkRatting";
+import AppRatting from "../../../components/AppRatting";
 import AppButton from "../../../components/AppButton";
 import { useAppDispatch } from "../../main/src/configureStore";
 import { productActions } from "../src/productAction";
@@ -47,20 +47,20 @@ const ProductLisDetailsScreen = (props: NativeStackScreenProps<ProductLisDetails
     <MainSafeAreaScreen style={styles.imageBackground}>
       <ImageBackground progressiveRenderingEnabled={true}  resizeMode={"contain"} imageStyle={styles.image} source={{ uri: product.image }}style={styles.imageBackground} >
         <View style={styles.subViewContainer}> 
-        <ClarkIcon name={"cards-heart"} color={COLORS.black} size={24} />
+        <AppIcon name={"cards-heart"} color={COLORS.black} size={24} />
         <View>
         {count > 0 && <Badge  style={styles.badge} size={15}  theme={{ colors: { primary: 'green' } }}>{count}</Badge>}
-        <ClarkIcon style={styles.icon} name={"cart"} color={COLORS.black} size={24} />
+        <AppIcon style={styles.icon} name={"cart"} color={COLORS.black} size={24} />
         </View>
         </View>
-        <ClarkIcon style={styles.backButton} name={"arrow-left"}color={COLORS.black} size={24} onPress={() => dropOff()}/>
+        <AppIcon style={styles.backButton} name={"arrow-left"}color={COLORS.black} size={24} onPress={() => dropOff()}/>
       </ImageBackground>
     </MainSafeAreaScreen>
   );
 
   const renderProductRatting = () => (
     <View style={styles.productRattingView}>
-      <ClarkRatting rating={product.rating.rate} />
+      <AppRatting rating={product.rating.rate} />
       <AppBodyText
         style={{
           marginHorizontal: SIZES.S_7,

@@ -7,7 +7,7 @@ interface ClarkRattingProps {
   rating: number;
 }
 
-const ClarkRatting = (props: ClarkRattingProps) => {
+const AppRatting = (props: ClarkRattingProps) => {
 
   return (
     <Rating
@@ -26,4 +26,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ClarkRatting;
+export default AppRatting;
