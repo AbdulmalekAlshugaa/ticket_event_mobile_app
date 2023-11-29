@@ -7,10 +7,6 @@ export const EVENT_ROUTES = {
 
 export function* getEvents(payload: eventsDiscovery.eventRequest) {
     const request = `${EVENT_ROUTES.getEvents}`;
-    const response:eventsDiscovery.state  = yield call(
-        networkApi.get,
-      request,
-      payload,
-    );
+    const response: eventsDiscovery.state = yield call(networkApi.get, request, payload);
     return response;
-  }
+}

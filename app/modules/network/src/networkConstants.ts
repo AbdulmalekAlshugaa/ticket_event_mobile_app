@@ -6,4 +6,4 @@ export const API_KEY = '2TGDaTsM8xoX7zLzU770xgTBha11az6R';
 export const NETWORK_HTTP_HEADERS = {
     'Cache-Control': 'no-cache',
     'Content-Type': 'application/json',
-}
+};

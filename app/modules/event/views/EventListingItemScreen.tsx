@@ -29,6 +29,7 @@ import {
   eventSelector,
 } from "../src/eventSelectors";
 import { ActivityIndicator } from "react-native-paper";
+import { useDebounce } from "app/modules/main/hooks/useDebounce";
 
 const EventListingItemScreen = () => {
   const dispatch = useAppDispatch();
@@ -117,7 +118,11 @@ const EventListingItemScreen = () => {
       </View>
     );
   };
-
+  // const applySearch = useDebounce((value: string) => {
+  //   const finalProducts : product.productResponse[] = data as product.productResponse[];
+  //   setProducts(finalProducts.filter((item:product.productResponse) => item.title.toLowerCase().includes(value.toLowerCase())));
+  // }, 700); // Debounce time in milliseconds
+  
   const renderEventsList = () => (
     <FlatList
       data={eventsData}

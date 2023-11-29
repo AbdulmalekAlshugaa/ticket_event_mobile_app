@@ -26,7 +26,6 @@ const styles = StyleSheet.create({
         backgroundColor: COLORS.white,
         justifyContent: 'center',
         alignItems: 'center',
-
     },
     lottie: {
         height: 100,

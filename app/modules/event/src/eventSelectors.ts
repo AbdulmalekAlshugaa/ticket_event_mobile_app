@@ -1,32 +1,30 @@
 import { createSelector } from '@reduxjs/toolkit';
 
-export const eventSelector = (state:any) => state.eventsDiscovery.events
+export const eventSelector = (state: any) => state.eventsDiscovery.events;
 
-export const getEventsSelector = createSelector(eventSelector,  (events) => {
+export const getEventsSelector = createSelector(eventSelector, events => {
     if (events.data && events.data._embedded) {
-        return events.data._embedded.events
+        return events.data._embedded.events;
     }
-    return []
-})   
+    return [];
+});
 
-export const isLoadingSelector = createSelector(eventSelector,  (events) => events.isLoading)
+export const isLoadingSelector = createSelector(eventSelector, events => events.isLoading);
 
-export const isOkSelector = createSelector(eventSelector,  (events) => events.ok)
+export const isOkSelector = createSelector(eventSelector, events => events.ok);
 
-export const errorMessagesSelector = createSelector(eventSelector,  (events) => {
+export const errorMessagesSelector = createSelector(eventSelector, events => {
     if (events.problem) {
-        return "something went wrong"
-    }else if (events.data && events.data._embedded && events.data._embedded.events.length === 0) {
-        return "No events found"
+        return 'something went wrong';
+    } else if (events.data && events.data._embedded && events.data._embedded.events.length === 0) {
+        return 'No events found';
     }
-    return 'error'
-})
+    return 'error';
+});
 
-export const getTotalPagesSelector = createSelector(eventSelector,  (events) => {
+export const getTotalPagesSelector = createSelector(eventSelector, events => {
     if (events.data && events.data.page) {
-        return events.data.page.totalPages
+        return events.data.page.totalPages;
     }
-    return 0
-}
-)
-
+    return 0;
+});

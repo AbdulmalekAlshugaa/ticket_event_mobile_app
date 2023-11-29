@@ -5,9 +5,9 @@ export const mainAppRoutes = Object.freeze({
 
 export const mainAppRouteOptions = Object.freeze({
     ProductList: {
-        headerShown: false
+        headerShown: false,
     },
     ProductDetail: {
-        headerShown: false
+        headerShown: false,
     },
 });

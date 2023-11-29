@@ -2,7 +2,6 @@ import {  configureStore, createListenerMiddleware, Middleware } from '@reduxjs/
 import createSagaMiddleware from 'redux-saga';
 import { useDispatch } from 'react-redux'
 import rootSaga from '../daemon';
-import counterSlice from '../../product/src/counterSlice';
 import eventsDiscovery from '../../event/src/eventReducer';
 
 const sagaMiddleware = createSagaMiddleware({

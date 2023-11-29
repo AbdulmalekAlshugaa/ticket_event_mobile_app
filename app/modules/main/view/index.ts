@@ -1,5 +1,5 @@
-import MainErrorsScreen from "./MainErrorsScreen";
-import MainLoadingScreen from "./MainLoadingScreen";
-import MainSafeAreaScreen from "./MainSafeAreaScreen";
+import MainErrorsScreen from './MainErrorsScreen';
+import MainLoadingScreen from './MainLoadingScreen';
+import MainSafeAreaScreen from './MainSafeAreaScreen';
 
 export { MainErrorsScreen, MainLoadingScreen, MainSafeAreaScreen };
