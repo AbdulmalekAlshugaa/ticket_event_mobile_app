@@ -1,4 +1,4 @@
-import { View, StatusBar, StyleSheet, FlatList, RefreshControl, TouchableOpacity } from 'react-native';
+import { View, StyleSheet, FlatList, RefreshControl, TouchableOpacity } from 'react-native';
 import { useEffect, useState } from 'react';
 import { COLORS, SIZES } from '../../main/src/mainConstants';
 import AppSearch from '../../../components/AppSearch';
@@ -64,7 +64,8 @@ const EventListingItemScreen = () => {
                 init();
                 exist();
                 setCountryCode(countryCode);
-                enterProductListItem(countryCode, page);
+                enterProductListItem(countryCode, 1);
+                setPage(1);
             }}
         />
     );
