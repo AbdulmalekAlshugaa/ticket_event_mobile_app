@@ -25,7 +25,6 @@ export default function ProductListItemScreen() {
       exist();
     };
   }, [isLoading]);
-  console.log(error) 
 
   const renderProduct = (item: product.productResponse) => (
     <ProductListItem

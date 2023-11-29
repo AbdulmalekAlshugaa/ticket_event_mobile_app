@@ -2,11 +2,17 @@ import { StyleSheet, View } from 'react-native'
 import React from 'react'
 import AppBodyText from '../../../components/AppBodyText'
 
-const MainErrorsScreen = () => {
+interface MainErrorsScreenProps {
+   title: string
+      
+  }
+
+const MainErrorsScreen = (props:MainErrorsScreenProps) => {
+  props.title = "Something went wrong. Please try again later."
   return (
     <View style={styles.container}>
       <AppBodyText
-       title='Something went wrong. Please try again later.'
+       title={props.title}
       />
     </View>
   )

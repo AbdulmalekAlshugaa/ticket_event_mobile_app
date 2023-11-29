@@ -14,7 +14,7 @@ import { COUNTRIES } from "../src/eventConstant";
 import EventCountryItem from "./EventCountryItem";
 
 interface EventCountrySelectionModalProps {
-  code: any;
+  countryCode: any;
 }
 
 const EventCountrySelectionModal = (props: EventCountrySelectionModalProps) => {
@@ -22,9 +22,9 @@ const EventCountrySelectionModal = (props: EventCountrySelectionModalProps) => {
   const [fadeAnim] = React.useState(new Animated.Value(0));
   const [country, setCountry] = React.useState("Country");
 
-  const renderCountries = (item: country) => (
-    <EventCountryItem  countryName={item.name} code={item.code} onPress={()=>{
-      props.code(item.code)
+  const renderCountries = (item: eventsDiscovery.country) => (
+    <EventCountryItem  countryName={item.name} countryCode={item.code} onPress={()=>{
+      props.countryCode(item.code)
       setCountry(item.name)
       dismiss();
     }} />

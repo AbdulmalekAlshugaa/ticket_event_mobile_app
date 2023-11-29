@@ -7,7 +7,7 @@ import { Card, Text } from "react-native-paper";
 
 interface EventListItemProps {
   countryName: string;
-  code: string;
+  countryCode: string;
   onPress?: () => void;
 }
 
@@ -18,7 +18,7 @@ const EventCountryItem = (props: EventListItemProps) => {
       <Card style={styles.container}>
         <Card.Content style={styles.bodyContent}>
           <AppBoldText style={styles.titleText} title={props.countryName} />
-          <AppBodyText style={styles.titleText} title={props.code} />
+          <AppBodyText style={styles.titleText} title={props.countryCode} />
         </Card.Content>
       </Card>
     </TouchableOpacity>

@@ -16,7 +16,7 @@ export const EVENT_SCREEN_OPTIONS = Object.freeze({
     },
 });
 
-export const COUNTRIES : country[] = [
+export const COUNTRIES : eventsDiscovery.country[] = [
     { "code": "US", "name": "United States Of America" },
     { "code": "AD", "name": "Andorra" },
     { "code": "AI", "name": "Anguilla" },

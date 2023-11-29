@@ -3,6 +3,7 @@ import createSagaMiddleware from 'redux-saga';
 import { useDispatch } from 'react-redux'
 import rootSaga from '../daemon';
 import counterSlice from '../../product/src/counterSlice';
+import eventsDiscovery from '../../event/src/eventReducer';
 
 const sagaMiddleware = createSagaMiddleware({
     onError: (error, { sagaStack }) => {
@@ -19,8 +20,8 @@ const MIDDLEWARE: Middleware[] = [
 
 export const store = configureStore({
     reducer: {
-        counter:counterSlice
-    },
+        eventsDiscovery:eventsDiscovery,
+      },
     middleware: (getDefaultMiddleware) =>
         getDefaultMiddleware({
             immutableCheck: { warnAfter: 128 }, // We should be moving this lower as we get better
