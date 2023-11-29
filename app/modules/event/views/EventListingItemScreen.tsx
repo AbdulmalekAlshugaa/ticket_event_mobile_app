@@ -10,7 +10,6 @@ import { useEffect, useState } from "react";
 import { COLORS, SIZES } from "../../main/src/mainConstants";
 import AppSearch from "../../../components/AppSearch";
 import EventItem from "./EventItem";
-import { useGetEvents } from "../hooks/useGetEventQuery";
 import {
   MainLoadingScreen,
   MainSafeAreaScreen,
@@ -26,6 +25,8 @@ import {
   getEventsSelector,
   isLoadingSelector,
   errorMessagesSelector,
+  getTotalPagesSelector,
+  eventSelector,
 } from "../src/eventSelectors";
 import { ActivityIndicator } from "react-native-paper";
 
@@ -34,16 +35,23 @@ const EventListingItemScreen = () => {
   const [page, setPage] = useState(1);
   const [countryCode, setCountryCode] = useState("US");
 
-  const enterProductListItem = (countryCode: string, page:number) =>
-  dispatch( eventActions.enterEventList({ page: page,size: 10, countryCode: countryCode}));
+  const enterProductListItem = (countryCode: string, page: number) =>
+    dispatch(
+      eventActions.enterEventList({
+        page: page,
+        size: 10,
+        countryCode: countryCode,
+      })
+    );
   const exist = () => dispatch(eventActions.exitEventList());
-
+  const init = () => dispatch(eventActions.eventResetState());
   const eventsData = useSelector(getEventsSelector);
   const isLoading = useSelector(isLoadingSelector);
   const errorMessages = useSelector(errorMessagesSelector);
+  const totalPages = useSelector(getTotalPagesSelector);
 
   useEffect(() => {
-    enterProductListItem(countryCode,page);
+    enterProductListItem(countryCode, page);
     return () => {
       exist();
     };
@@ -62,9 +70,10 @@ const EventListingItemScreen = () => {
   const renderCountrySelection = () => (
     <EventCountrySelectionModal
       countryCode={(countryCode: string) => {
+        init();
         exist();
         setCountryCode(countryCode);
-        enterProductListItem(countryCode,page);
+        enterProductListItem(countryCode, page);
       }}
     />
   );
@@ -87,10 +96,11 @@ const EventListingItemScreen = () => {
     </View>
   );
   const handleOnEndReached = () => {
+    if (page === totalPages) return;
+
     exist();
     enterProductListItem(countryCode, page + 1);
     setPage(page + 1);
-   
   };
 
   const renderFooter = () => {
@@ -99,9 +109,10 @@ const EventListingItemScreen = () => {
         style={{
           paddingVertical: 20,
           borderTopWidth: 1,
-          borderColor: '#CED0CE',
-          justifyContent: 'center',
-        }}>
+          borderColor: "#CED0CE",
+          justifyContent: "center",
+        }}
+      >
         <ActivityIndicator size="small" color={COLORS.primary} />
       </View>
     );
@@ -113,7 +124,7 @@ const EventListingItemScreen = () => {
       showsVerticalScrollIndicator={false}
       alwaysBounceVertical={false}
       renderItem={({ item }) => {
-      //  console.log("item", item.id);
+        //  console.log("item", item.id);
         return renderEvents(item);
       }}
       keyExtractor={(item) => `${item.id}`}
@@ -126,7 +137,10 @@ const EventListingItemScreen = () => {
         paddingBottom: 10,
       }}
       ListFooterComponent={() => {
-        return renderFooter();
+        if (totalPages > page) {
+          return renderFooter();
+        }
+        return null;
       }}
       // refreshControl={
       //   <RefreshControl
@@ -142,7 +156,7 @@ const EventListingItemScreen = () => {
     <>
       {renderSearchContainer()}
       {renderCountrySelection()}
-      {isLoading && page ===1 ? (
+      {isLoading && page === 1 ? (
         <MainLoadingScreen />
       ) : eventsData.length > 0 ? (
         <MainSafeAreaScreen>{renderEventsList()}</MainSafeAreaScreen>

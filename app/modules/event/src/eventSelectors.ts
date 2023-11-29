@@ -1,6 +1,6 @@
 import { createSelector } from '@reduxjs/toolkit';
 
-const eventSelector = (state:any) => state.eventsDiscovery
+export const eventSelector = (state:any) => state.eventsDiscovery.events
 
 export const getEventsSelector = createSelector(eventSelector,  (events) => {
     if (events.data && events.data._embedded) {
@@ -19,7 +19,14 @@ export const errorMessagesSelector = createSelector(eventSelector,  (events) => 
     }else if (events.data && events.data._embedded && events.data._embedded.events.length === 0) {
         return "No events found"
     }
-
     return 'error'
 })
+
+export const getTotalPagesSelector = createSelector(eventSelector,  (events) => {
+    if (events.data && events.data.page) {
+        return events.data.page.totalPages
+    }
+    return 0
+}
+)
 
