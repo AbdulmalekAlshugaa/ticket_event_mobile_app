@@ -10,8 +10,8 @@ import {
   MainErrorsScreen,
 } from "../../main/view";
 import { navigateTo } from "../../navigation/RootNavigation";
-import AppIcon from "../../../components/AppIcon";
-import AppModal from "../../../components/AppModal";
+import EventCountrySelectionModal from "./EventCountrySelectionModal";
+import { AppIcon } from "../../../components";
 
 const EventListingItemScreen = () => {
   const { data, isLoading, isSuccess, isRefetching, refetch, error } =
@@ -19,10 +19,8 @@ const EventListingItemScreen = () => {
   const [events, setEvents] = useState<[]>([]);
 
   useEffect(() => {
-   //setEvents(data._embedded.events);
+  // setEvents(data._embedded.events);
   }, []);
-
-  
 
   const renderEvents = (item: any) => (
     <EventItem
@@ -34,11 +32,21 @@ const EventListingItemScreen = () => {
       country={item._embedded.venues[0].country.name}
     />
   );
+const renderCountrySelection = () => (
+  <EventCountrySelectionModal code={(code: string) =>{
+    console.log(code);
+  }} />
+);
 
+const renderFilter = () => (
+  <TouchableOpacity style={styles.filterContainer}>
+    <AppIcon style={{ alignSelf: 'center' }} name={"filter"} color={COLORS.black} size={24} />
+  </TouchableOpacity>
+);
   const renderSearchContainer = () => (
     <View style={styles.searchContainer}>
       <AppSearch style={styles.appSearch} />
-      <AppModal />
+      {renderFilter()}
     </View>
   );
   return (
@@ -47,8 +55,8 @@ const EventListingItemScreen = () => {
         <MainLoadingScreen />
       ) : isSuccess && data !== "error" ? (
         <MainSafeAreaScreen>
-          
           {renderSearchContainer()}
+          {renderCountrySelection()}
           <FlatList
             data={events}
             showsVerticalScrollIndicator={false}
