@@ -1,4 +1,4 @@
-import { View, StatusBar, StyleSheet, FlatList,RefreshControl } from "react-native";
+import { View, StatusBar, StyleSheet, FlatList,RefreshControl, TouchableOpacity } from "react-native";
 import { useEffect, useState } from "react";
 import { COLORS, SIZES } from "../../main/src/mainConstants";
 import AppSearch from "../../../components/AppSearch";
@@ -10,6 +10,8 @@ import {
   MainErrorsScreen,
 } from "../../main/view";
 import { navigateTo } from "../../navigation/RootNavigation";
+import AppIcon from "../../../components/AppIcon";
+import AppModal from "../../../components/AppModal";
 
 const EventListingItemScreen = () => {
   const { data, isLoading, isSuccess, isRefetching, refetch, error } =
@@ -17,7 +19,7 @@ const EventListingItemScreen = () => {
   const [events, setEvents] = useState<[]>([]);
 
   useEffect(() => {
-    setEvents(data._embedded.events);
+   //setEvents(data._embedded.events);
   }, []);
 
   
@@ -27,7 +29,7 @@ const EventListingItemScreen = () => {
       onPress={() => navigateTo("EventListingItemDetails", { item })}
       title={item.name}
       image={item.images[0].url}
-      body={item.promoter.description}
+      body={item?.promoter?.description}
       type={item.type}
       country={item._embedded.venues[0].country.name}
     />
@@ -36,6 +38,7 @@ const EventListingItemScreen = () => {
   const renderSearchContainer = () => (
     <View style={styles.searchContainer}>
       <AppSearch style={styles.appSearch} />
+      <AppModal />
     </View>
   );
   return (
@@ -44,6 +47,7 @@ const EventListingItemScreen = () => {
         <MainLoadingScreen />
       ) : isSuccess && data !== "error" ? (
         <MainSafeAreaScreen>
+          
           {renderSearchContainer()}
           <FlatList
             data={events}
@@ -75,17 +79,26 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: COLORS.lightGrey,
   },
-  searchContainer: {},
+  searchContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+  },
+  filterContainer: {
+    width:50,
+    height:50,
+    borderRadius: SIZES.S_8,
+    backgroundColor: COLORS.lightGrey,
+    marginVertical: SIZES.S_5,
+    marginEnd: SIZES.S_2,
+    justifyContent: 'center',
+  },
   appSearch: {
     marginVertical: SIZES.S_5,
     marginHorizontal: SIZES.S_5,
-    shadowColor: COLORS.black,
     borderRadius: SIZES.S_8,
     backgroundColor: COLORS.lightGrey,
-    shadowOffset: {
-      width: 0,
-      height: 5,
-    },
+    flex: 1,
+  
   },
 });
 
