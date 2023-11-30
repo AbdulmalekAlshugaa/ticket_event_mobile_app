@@ -14,7 +14,7 @@ export const isLoadingSelector = createSelector(eventSelector, events => events.
 export const isOkSelector = createSelector(eventSelector, events => events.ok);
 
 export const errorMessagesSelector = createSelector(eventSelector, events => {
-    console.log('events', events);
+  
     if (events.problem) {
         return 'something went wrong';
     } else if (events.data && events.data._embedded && events.data._embedded.events.length === 0) {

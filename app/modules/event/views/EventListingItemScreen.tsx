@@ -38,6 +38,7 @@ const EventListingItemScreen = () => {
         );
     const exist = () => dispatch(eventActions.exitEventList());
     const init = () => dispatch(eventActions.eventResetState());
+    const enterEventDetails = (item: any) => dispatch(eventActions.enterEventDetails(item));
     const eventsData = useSelector(getEventsSelector);
     const isLoading: boolean = useSelector(isLoadingSelector);
     const errorMessages: string = useSelector(errorMessagesSelector);
@@ -52,7 +53,7 @@ const EventListingItemScreen = () => {
 
     const renderEvents = (item: any) => (
         <EventItem
-            onPress={() => navigateTo('EventListingItemDetails', { item })}
+            onPress={()=>enterEventDetails(item)}
             title={item.name}
             image={item.images[0].url}
             body={item?.promoter?.description}
@@ -115,7 +116,6 @@ const EventListingItemScreen = () => {
     };
     const renderFilterModal = () => <EventFilteringModal visible={isModalVisible} hideModal={hideModal} />;
     const applySearch = useDebounce((value: string) => {
-        console.log('value', value);
         exist();
         enterProductListItem(countryCode, page + 1, value);
     }, 700); // delay in ms
@@ -126,7 +126,6 @@ const EventListingItemScreen = () => {
             showsVerticalScrollIndicator={false}
             alwaysBounceVertical={false}
             renderItem={({ item }) => {
-                //  console.log("item", item.id);
                 return renderEvents(item);
             }}
             keyExtractor={item => `${item.id}`}

@@ -60,7 +60,7 @@ const EventFilteringModal = (props: EventFilteringModalProps) => {
                 style={styles.button}
                 label="Apply Filter"
                 oPress={() => {
-                    console.log('eventFilter', sortingValue);
+                   
                     init();
                     exist();
                     enterProductListItem({

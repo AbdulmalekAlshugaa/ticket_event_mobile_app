@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, ImageBackground, ScrollView } from 'react-native';
+import { View,  StyleSheet, ImageBackground, ScrollView } from 'react-native';
 import React from 'react';
 import { MainSafeAreaScreen } from '../../main/view';
 import { COLORS, SIZES } from '../../main/src/mainConstants';
@@ -9,7 +9,8 @@ import EventItemDetails from './EventItemDetails';
 import { formatDateString } from '../src/eventUtils';
 
 const EventListingItemDetailsScreen = ({ route }) => {
-    const { item } = route.params;
+    const item = route.params.item;
+ 
 
     const renderEventImage = () => (
         <MainSafeAreaScreen style={styles.imageBackground}>

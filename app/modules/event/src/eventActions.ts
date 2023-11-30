@@ -11,5 +11,6 @@ export const eventActions = {
     getEvents: createAction<{ id: number }>('EVENT/GET_EVENTS'),
     dropOffEvent: createAction('EVENT/DROP_OFF_EVENT'),
 
-    getEventDetail: createAction<{ id: number }>('EVENT/GET_EVENT_DETAIL'),
+    enterEventDetails: createAction<any>('EVENT/ENTER_EVENT_DETAILS'),
+    exitEventDetails: createAction('EVENT/EXIT_EVENT_DETAILS'),
 } as const;

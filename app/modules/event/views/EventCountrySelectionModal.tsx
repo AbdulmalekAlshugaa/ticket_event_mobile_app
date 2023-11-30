@@ -47,7 +47,6 @@ const EventCountrySelectionModal = (props: EventCountrySelectionModalProps) => {
     };
 
     const show = () => {
-        console.log('show');
         setVisible(true);
         Animated.timing(fadeAnim, {
             toValue: 1,
