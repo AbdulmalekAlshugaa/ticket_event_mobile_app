@@ -4,7 +4,6 @@ import { COLORS, SIZES } from '../../main/src/mainConstants';
 import AppSearch from '../../../components/AppSearch';
 import EventItem from './EventItem';
 import { MainLoadingScreen, MainSafeAreaScreen, MainErrorsScreen } from '../../main/view';
-import { navigateTo } from '../../navigation/RootNavigation';
 import EventCountrySelectionModal from './EventCountrySelectionModal';
 import { AppIcon } from '../../../components';
 import { useAppDispatch } from '../../main/src/configureStore';
