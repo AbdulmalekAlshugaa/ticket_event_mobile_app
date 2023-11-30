@@ -5,12 +5,10 @@ export const eventActions = {
     enterEventList: createAction<eventsDiscovery.eventRequest>('EVENT/ENTER_EVENT_LIST'),
     eventListSuccess: createAction<eventsDiscovery.eventResponse>('EVENT/EVENT_LIST_SUCCESS'),
     eventResetState: createAction('EVENT/RESET_STATE'),
-
-    dropOffEventList: createAction('EVENT/DROP_OFF_EVENT_LIST'),
     exitEventList: createAction('EVENT/EXIT_EVENT_LIST'),
-    getEvents: createAction<{ id: number }>('EVENT/GET_EVENTS'),
     dropOffEvent: createAction('EVENT/DROP_OFF_EVENT'),
 
     enterEventDetails: createAction<any>('EVENT/ENTER_EVENT_DETAILS'),
     exitEventDetails: createAction('EVENT/EXIT_EVENT_DETAILS'),
+    dropOffEventDetails: createAction('EVENT/DROP_OFF_EVENT_DETAILS'),
 } as const;

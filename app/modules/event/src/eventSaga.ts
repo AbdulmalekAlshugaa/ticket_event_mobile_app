@@ -1,7 +1,7 @@
 import { cancel, fork, put, take, call } from 'redux-saga/effects';
 import { eventActions } from './eventActions';
 import { getEvents } from './eventApi';
-import { navigateTo } from '../../navigation/RootNavigation';
+import { navigateTo,goBack } from '../../navigation/RootNavigation';
 
 export function* eventMainRuntime(): any {
     while (true) {
@@ -33,6 +33,16 @@ export function* eventDetails(): any {
     while (true) {
         const { payload } = yield take(eventActions.enterEventDetails);
         navigateTo('EventListingItemDetails', { item: payload });
+        const dropOffEventDetails = yield fork(eventDropOffRuntime);
         yield take(eventActions.exitEventDetails);
+        yield cancel(dropOffEventDetails);
     }
 }
+
+export function* eventDropOffRuntime() {
+    while (true) {
+      yield take(eventActions.dropOffEventDetails);
+      // it safe to call goBack() 
+      goBack();
+    }
+  }

@@ -1,5 +1,5 @@
 import { View,  StyleSheet, ImageBackground, ScrollView } from 'react-native';
-import React from 'react';
+import React,{useEffect} from 'react';
 import { MainSafeAreaScreen } from '../../main/view';
 import { COLORS, SIZES } from '../../main/src/mainConstants';
 import AppIcon from '../../../components/AppIcon';
@@ -7,10 +7,21 @@ import { goBack } from '../../navigation/RootNavigation';
 import { AppBodyText, AppBoldText, AppButton } from '../../../components';
 import EventItemDetails from './EventItemDetails';
 import { formatDateString } from '../src/eventUtils';
+import { useAppDispatch } from '../../main/src/configureStore';
+import { eventActions } from '../src/eventActions';
 
 const EventListingItemDetailsScreen = ({ route }) => {
     const item = route.params.item;
- 
+    const dispatch = useAppDispatch();
+
+    const exist = () => dispatch(eventActions.exitEventDetails());
+    const dropOff = () => dispatch(eventActions.dropOffEventDetails());
+
+    useEffect(() => {
+        return () => {
+            exist();
+        };
+    }, []);
 
     const renderEventImage = () => (
         <MainSafeAreaScreen style={styles.imageBackground}>
@@ -28,7 +39,7 @@ const EventListingItemDetailsScreen = ({ route }) => {
                     name={'arrow-left'}
                     color={COLORS.black}
                     size={24}
-                    onPress={() => goBack}
+                    onPress={dropOff}
                 />
             </ImageBackground>
         </MainSafeAreaScreen>
