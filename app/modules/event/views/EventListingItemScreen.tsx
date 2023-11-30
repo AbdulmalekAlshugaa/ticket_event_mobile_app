@@ -26,7 +26,7 @@ const EventListingItemScreen = () => {
     const [countryCode, setCountryCode] = useState('');
     const [isModalVisible, setModalVisible] = useState(false);
 
-    const enterProductListItem = ( page: number,countryCode?: string, keyword?: string) =>
+    const enterProductListItem = (page: number, countryCode?: string, keyword?: string) =>
         dispatch(
             eventActions.enterEventList({
                 page: page,
@@ -42,8 +42,8 @@ const EventListingItemScreen = () => {
     const isLoading: boolean = useSelector(isLoadingSelector);
     const errorMessages: string = useSelector(errorMessagesSelector);
     const totalPages: number = useSelector(getTotalPagesSelector);
-    console.log(eventsData.length)
-    console.log(errorMessages)
+    console.log(eventsData.length);
+    console.log(errorMessages);
 
     useEffect(() => {
         enterProductListItem(page);
@@ -54,12 +54,12 @@ const EventListingItemScreen = () => {
 
     const renderEvents = (item: any) => (
         <EventItem
-            onPress={()=>enterEventDetails(item)}
+            onPress={() => enterEventDetails(item)}
             title={item.name}
             image={item.images[0].url}
             body={item?.promoter?.description}
             type={item.type}
-            country={item._embedded.venues[0].country.name}
+            country={item?._embedded?.venues[0]?.country.name}
         />
     );
     const renderCountrySelection = () => (
@@ -68,7 +68,7 @@ const EventListingItemScreen = () => {
                 init();
                 exist();
                 setCountryCode(countryCode);
-                enterProductListItem( 1,countryCode);
+                enterProductListItem(1, countryCode);
                 setPage(1);
             }}
         />
@@ -94,20 +94,13 @@ const EventListingItemScreen = () => {
     const handleOnEndReached = () => {
         if (page === totalPages) return;
         exist();
-        enterProductListItem( page + 1, countryCode && countryCode);
+        enterProductListItem(page + 1, countryCode && countryCode);
         setPage(page + 1);
     };
 
     const renderFooter = () => {
         return (
-            <View
-                style={{
-                    paddingVertical: 20,
-                    borderTopWidth: 1,
-                    borderColor: '#CED0CE',
-                    justifyContent: 'center',
-                }}
-            >
+            <View style={styles.footer}>
                 <ActivityIndicator size="small" color={COLORS.primary} />
             </View>
         );
@@ -117,8 +110,9 @@ const EventListingItemScreen = () => {
     };
     const renderFilterModal = () => <EventFilteringModal visible={isModalVisible} hideModal={hideModal} />;
     const applySearch = useDebounce((value: string) => {
+        init();
         exist();
-        enterProductListItem( page + 1, countryCode&& countryCode, value);
+        enterProductListItem(page + 1, countryCode && countryCode, value);
     }, 700); // delay in ms
 
     const renderEventsList = () => (
@@ -148,12 +142,10 @@ const EventListingItemScreen = () => {
                 <RefreshControl
                     refreshing={false}
                     onRefresh={() => {
-                        
                         init();
                         exist();
                         enterProductListItem(1);
                         setPage(1);
-                        
                     }}
                 />
             }
@@ -168,7 +160,6 @@ const EventListingItemScreen = () => {
                 <MainLoadingScreen />
             ) : eventsData.length > 0 ? (
                 <MainSafeAreaScreen>{renderEventsList()}</MainSafeAreaScreen>
-                
             ) : (
                 <MainErrorsScreen title={errorMessages} />
             )}
@@ -205,6 +196,12 @@ const styles = StyleSheet.create({
         justifyContent: 'flex-end',
         marginHorizontal: SIZES.S_7,
         backgroundColor: COLORS.secondary,
+    },
+    footer: {
+        paddingVertical: 20,
+        borderTopWidth: 1,
+        borderColor: '#CED0CE',
+        justifyContent: 'center',
     },
 });
 
