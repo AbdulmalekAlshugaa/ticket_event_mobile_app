@@ -3,7 +3,6 @@ import React, { useEffect } from 'react';
 import { MainSafeAreaScreen } from '../../main/view';
 import { COLORS, SIZES } from '../../main/src/mainConstants';
 import AppIcon from '../../../components/AppIcon';
-import { goBack } from '../../navigation/RootNavigation';
 import { AppBodyText, AppBoldText, AppButton } from '../../../components';
 import EventItemDetails from './EventItemDetails';
 import { formatDateString } from '../src/eventUtils';
