@@ -26,7 +26,7 @@ const EventListingItemScreen = () => {
     const [countryCode, setCountryCode] = useState('');
     const [isModalVisible, setModalVisible] = useState(false);
 
-    const enterProductListItem = (page: number, countryCode?: string, keyword?: string) =>
+    const enterEventListItem = (page: number, countryCode?: string, keyword?: string) =>
         dispatch(
             eventActions.enterEventList({
                 page: page,
@@ -46,7 +46,7 @@ const EventListingItemScreen = () => {
     console.log(errorMessages);
 
     useEffect(() => {
-        enterProductListItem(page);
+        enterEventListItem(page);
         return () => {
             exist();
         };
@@ -68,7 +68,7 @@ const EventListingItemScreen = () => {
                 init();
                 exist();
                 setCountryCode(countryCode);
-                enterProductListItem(1, countryCode);
+                enterEventListItem(1, countryCode);
                 setPage(1);
             }}
         />
@@ -94,7 +94,7 @@ const EventListingItemScreen = () => {
     const handleOnEndReached = () => {
         if (page === totalPages) return;
         exist();
-        enterProductListItem(page + 1, countryCode && countryCode);
+        enterEventListItem(page + 1, countryCode && countryCode);
         setPage(page + 1);
     };
 
@@ -112,7 +112,7 @@ const EventListingItemScreen = () => {
     const applySearch = useDebounce((value: string) => {
         init();
         exist();
-        enterProductListItem(page + 1, countryCode && countryCode, value);
+        enterEventListItem(page + 1, countryCode && countryCode, value);
     }, 700); // delay in ms
 
     const renderEventsList = () => (
@@ -144,7 +144,7 @@ const EventListingItemScreen = () => {
                     onRefresh={() => {
                         init();
                         exist();
-                        enterProductListItem(1);
+                        enterEventListItem(1);
                         setPage(1);
                     }}
                 />
