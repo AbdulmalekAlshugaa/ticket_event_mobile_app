@@ -1,15 +1,15 @@
-# E-Commerce-App
+# Event-App
 I have implemented the best practices of separation of concerns and utilized the saga pattern design to handle side effects. 
 
 # Task
-Create a simple React Native application that displays a list of products fetched from any
-API. The app should have two screens: product list and product details.
-When the user taps on a product item, the app should navigate to the product details screen
+Create a simple React Native application that displays a list of of event  fetched from ticketmaster
+API. The app should have two screens: search screen and event details screen only .
+When the user taps on a  item, the app should navigate to the event details screen
 and display its details..
 
 # Exploration 
 
-The task description outlines the creation of an application that interacts with an API. This API provides an array of objects, each including product details like title, description, image, and price. However, what if we aim to enhance this project professionally by integrating advanced techniques such as employing a side effect library like Saga, alongside Redux and React Query? While this might appear excessive for the scope of this assessment, the objective is to demonstrate our capability to develop a real-world application to the hiring manager. Let's embrace the challenge and proceed.
+The task description outlines the creation of an application that interacts with an API. This API provides an array of objects, each including event details like name, description, image, and price. However, what if we aim to enhance this project professionally by integrating advanced techniques such as employing a side effect library like Saga, alongside Redux and React Query? While this might appear excessive for the scope of this assessment, the objective is to demonstrate our capability to develop a real-world application to the hiring manager. Let's embrace the challenge and proceed.
 
 
 ## Saga pattern
@@ -33,9 +33,11 @@ The above two screenshots shows how we utilized saga pattern design within our p
 ```bash
   yarn install 
   expo start
+  yarn test // to check all test cases 
 ```
 
 ### implementation 
-| Home Page | Home Page |Details |
+| Search Page | Filter Page |Details |
 | ----------- | ----------- | ----------- | 
-|![Simulator Screen Shot - iPhone 13 - 2023-10-06 at 22 35 56](https://github.com/AbdulmalekAlshugaa/E-Commerce-App/assets/33663456/dd3eae8e-6bca-44e5-9364-15017a232640)|![Simulator Screen Shot - iPhone 13 - 2023-10-05 at 13 32 31](https://github.com/AbdulmalekAlshugaa/E-Commerce-App/assets/33663456/0de091ab-d45c-4e58-8dc0-7cf3d0e964d1)| ![Simulator Screen Shot - iPhone 13 - 2023-10-05 at 13 32 35](https://github.com/AbdulmalekAlshugaa/E-Commerce-App/assets/33663456/a54e3bd8-2a69-4eb5-a6c7-b087b46bc7d0)
+|![Simulator Screen Shot - iPhone 13 - 2023-12-01 at 00 42 05](https://github.com/AbdulmalekAlshugaa/ticket_event_mobile_app/assets/33663456/6884ac20-f83d-40fd-9893-0c7fef1cd133)|![Simulator Screen Shot - iPhone 13 - 2023-12-01 at 00 42 12](https://github.com/AbdulmalekAlshugaa/ticket_event_mobile_app/assets/33663456/c7254ae3-0701-41de-ab94-19213fb616e4)| ![Simulator Screen Shot - iPhone 13 - 2023-12-01 at 00 44 59](https://github.com/AbdulmalekAlshugaa/ticket_event_mobile_app/assets/33663456/29464a54-49c2-4367-a157-84cbecbff1d2)
+
