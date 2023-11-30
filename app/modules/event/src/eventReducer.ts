@@ -1,34 +1,6 @@
 import { createReducer, combineReducers } from '@reduxjs/toolkit';
 import { eventActions } from './eventActions';
-
-const EVENT_INIT_STATE: eventsDiscovery.state = {
-    data: {
-        _embedded: {
-            events: [],
-        },
-        _links: {},
-        page: {
-            size: 0,
-            totalElements: 0,
-            totalPages: 0,
-            number: 0,
-        },
-    },
-    ok: true,
-    problem: '',
-    isLoading: false,
-};
-
-const EVENT_FILTER_INIT_STATE: eventsDiscovery.eventRequest = {
-    page: 0,
-    size: 10,
-    search: '',
-    countryCode: '',
-    keyword: '',
-    includeTBA: 'no',
-    includeTBD: 'no',
-};
-
+import { EVENT_INIT_STATE,EVENT_FILTER_INIT_STATE } from './eventInitState';
 
 const events = createReducer(EVENT_INIT_STATE, builder => {
     builder
