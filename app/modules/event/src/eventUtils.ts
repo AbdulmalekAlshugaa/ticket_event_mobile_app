@@ -1,6 +1,6 @@
 const moment = require('moment');
 
-export function formatDateString(inputDate:string) {
+export function formatDateString(inputDate:string, format:string) {
   const originalDate = moment(inputDate);
-  return originalDate.format('DD MMMM, YYYY');
+  return originalDate.format(format);
 }

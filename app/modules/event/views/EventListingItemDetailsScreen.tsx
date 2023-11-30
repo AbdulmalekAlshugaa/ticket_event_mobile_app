@@ -10,6 +10,7 @@ import { formatDateString } from '../src/eventUtils';
 
 const EventListingItemDetailsScreen = ({ route }) => {
     const { item } = route.params;
+    console.log(item);
 
     const renderEventImage = () => (
         <MainSafeAreaScreen style={styles.imageBackground}>
@@ -18,7 +19,7 @@ const EventListingItemDetailsScreen = ({ route }) => {
                 resizeMode={'cover'}
                 imageStyle={styles.image}
                 source={{
-                    uri: 'https://s1.ticketm.net/dam/a/ae2/5beb62d8-2c29-4c5c-aa7d-c7513e229ae2_1340121_TABLET_LANDSCAPE_3_2.jpg',
+                    uri: item.images[0].url,
                 }}
                 style={styles.imageBackground}
             >
@@ -35,21 +36,24 @@ const EventListingItemDetailsScreen = ({ route }) => {
 
     const renderEventDetails = () => {
         const date = formatDateString(item.dates.start.dateTime, 'DD MMMM, YYYY');
-        const time = formatDateString(item.dates.start.dateTime, 'dddd, h:mma');
         return (
             <View style={styles.productDescriptionView}>
                 <AppBoldText variant={'displaySmall'} title={item.name} />
                 <EventItemDetails title={date} body={item.dates.start.localTime} icon={'calendar'} />
-                <EventItemDetails title={'Time'} body={'7:00 PM'} icon={'calendar'} />
+                <EventItemDetails title={item._embedded.venues[0].country.name} body={item._embedded.venues[0].city.name} icon={'map'} />
+                <AppBoldText style={styles.text}  title={'GeneralInfo'} />
+            <AppBodyText variant={'bodyMedium'} title={item._embedded.venues[0].accessibleSeatingDetail} />
             </View>
         );
     };
+
+   
 
     const renderButton = () => (
         <View style={styles.buttonView}>
             <View>
                 <AppBodyText style={styles.body} variant={'bodySmall'} title={' Price'} />
-                <AppBoldText title={`$90`} variant={'titleMedium'} />
+                <AppBoldText title={"$ "+ item.priceRanges[0].min+"-"+item.priceRanges[0].max} variant={'titleMedium'} />
             </View>
             <AppButton label={'Buy Now'} icon="ticket" oPress={() => console.log('Buy Now')} />
         </View>
@@ -60,6 +64,7 @@ const EventListingItemDetailsScreen = ({ route }) => {
             <ScrollView style={styles.container} contentContainerStyle={{ flexGrow: 1 }}>
                 {renderEventImage()}
                 {renderEventDetails()}
+          
             </ScrollView>
             {renderButton()}
         </>
@@ -122,6 +127,10 @@ const styles = StyleSheet.create({
     backButton: {
         marginVertical: SIZES.S_5,
         marginHorizontal: SIZES.S_5,
+    },
+    text: {
+        marginTop: SIZES.S_5,
+        marginBottom: SIZES.S_2,
     },
 });
 
