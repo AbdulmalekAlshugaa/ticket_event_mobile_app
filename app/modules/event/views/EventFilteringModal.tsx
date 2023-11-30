@@ -2,11 +2,14 @@ import { View, StyleSheet } from 'react-native';
 import React, { useState } from 'react';
 import AppModal from '../../../components/AppModal';
 import { COLORS, SIZES } from '../../../modules/main/src/mainConstants';
-import { AppChip, AppBoldText, AppButton, AppIcon } from '../../../components';
+import { AppChip, AppBoldText, AppButton, AppIcon,AppDropDown } from '../../../components';
 import { useAppDispatch } from '../../main/src/configureStore';
 import { eventActions } from '../src/eventActions';
 import { useSelector } from 'react-redux';
 import { getEventFilterSelector } from '../src/eventSelectors';
+import { EVENT_SORTING_PARAMS } from '../src/eventConstant';
+
+
 interface EventFilteringModalProps {
     visible: boolean;
     hideModal: () => void;
@@ -14,35 +17,39 @@ interface EventFilteringModalProps {
 }
 
 const EventFilteringModal = (props: EventFilteringModalProps) => {
-    const [isSelected, setIsSelected] = useState<boolean>(false);
     const [includeTBA, setIncludeTBA] = useState<eventsDiscovery.includeTBAOrTBD>('no');
     const [includeTBD, setIncludeTBD] = useState<eventsDiscovery.includeTBAOrTBD>('no');
+    const [sortingValue, setSortingValue] = useState<string>('');
     const eventFilter: eventsDiscovery.eventRequest = useSelector(getEventFilterSelector);
 
     const dispatch = useAppDispatch();
-
-    const init = () => dispatch(eventActions.eventResetState());
     const exist = () => dispatch(eventActions.exitEventList());
+    const init = () => dispatch(eventActions.eventResetState());
+
     const enterProductListItem = (event: eventsDiscovery.eventRequest) =>
         dispatch(
             eventActions.enterEventList({
                 page: event.page,
-                size: 10,
+                size: event.size,
                 countryCode: event.countryCode,
                 keyword: event.keyword,
                 includeTBA: event.includeTBA,
                 includeTBD: event.includeTBD,
+                sort: event.sort,
             }),
         );
 
-    const handleChipPress = () => {
-        setIsSelected(!isSelected);
+    const handleTBAChipPress = () => {
+        setIncludeTBA(includeTBA == 'yes' ? 'no' : 'yes');
+    };
+    const handleTBDChipPress = () => {
+        setIncludeTBD(includeTBD == 'yes' ? 'no' : 'yes');
     };
 
     const renderHeader = () => (
         <View style={styles.headerContainer}>
             <View style={styles.iconContainer}>
-                <AppIcon color={COLORS.gray} name="close" size={24} />
+                <AppIcon onPress={() => props.hideModal()} color={COLORS.gray} name="close" size={24} />
             </View>
             <AppBoldText title="Filtering" />
         </View>
@@ -52,16 +59,19 @@ const EventFilteringModal = (props: EventFilteringModalProps) => {
         <View style={styles.bottomContainer}>
             <AppButton
                 style={styles.button}
-                label="Result"
+                label="Apply Filter"
                 oPress={() => {
+                    console.log('eventFilter', sortingValue);
+                    init();
                     exist();
                     enterProductListItem({
                         page: 1,
-                        size: 10,
+                        size: 20,
                         includeTBA: includeTBA,
                         includeTBD: includeTBD,
                         countryCode: eventFilter.countryCode,
                         keyword: eventFilter.keyword,
+                        sort: sortingValue,
                     });
                     props.hideModal();
                 }}
@@ -69,25 +79,35 @@ const EventFilteringModal = (props: EventFilteringModalProps) => {
         </View>
     );
 
-    const renderBody = () => (
-        <View style={styles.filterChips}>
-            <AppChip
-                style={[styles.chip, { backgroundColor: isSelected ? COLORS.gray : COLORS.secondary }]}
-                selectedColor={COLORS.black}
-                name="includeTBA"
-                selected
-                onPress={() => {
-                    handleChipPress();
-                    setIncludeTBA(prev => (prev === 'no' ? 'yes' : 'no'));
-                }}
-            />
-            <AppChip
-                style={styles.chip}
-                selectedColor={COLORS.black}
-                name="includeTBD"
-                selected
-                onPress={() => console.log('pressed')}
-            />
+    const renderFiltrationBody = () => (
+        <View style={styles.filterContainer}>
+            <AppBoldText style={styles.text} title="Filter By" />
+            <View style={styles.filterChips}>
+                <AppChip
+                    style={[styles.chip, { backgroundColor: includeTBA == 'yes' ? COLORS.primary : COLORS.lightGrey }]}
+                    selectedColor={COLORS.black}
+                    name="includeTBA"
+                    selected
+                    onPress={handleTBAChipPress}
+                />
+                <AppChip
+                    style={[styles.chip, { backgroundColor: includeTBD == 'yes' ? COLORS.primary : COLORS.lightGrey }]}
+                    selectedColor={COLORS.black}
+                    name="includeTBD"
+                    selected
+                    onPress={handleTBDChipPress}
+                />
+            </View>
+        </View>
+    );
+
+    const renderSortingBody = () => (
+        <View style={styles.sortingContainer}>
+            <AppBoldText style={styles.text} title="Sort" />
+            <AppDropDown sortingValue={(sortingValue)=>{
+                setSortingValue(sortingValue);
+            }} data={EVENT_SORTING_PARAMS} placeholder={"Sort By"}  />
+          
         </View>
     );
 
@@ -100,7 +120,8 @@ const EventFilteringModal = (props: EventFilteringModalProps) => {
             hideModal={props.hideModal}
         >
             {renderHeader()}
-            {renderBody()}
+            {renderFiltrationBody()}
+            {renderSortingBody()}
             {renderBottom()}
         </AppModal>
     );
@@ -133,18 +154,21 @@ const styles = StyleSheet.create({
         marginVertical: SIZES.S_5,
     },
     bottomContainer: {
-        flex: 1,
         justifyContent: 'flex-end',
-        alignItems: 'center',
-        paddingBottom: SIZES.S_10,
+        flexGrow: 1,
+        marginBottom: SIZES.S_5,
     },
+    filterContainer: {},
+    sortingContainer: {},
     filterChips: {
-        flex: 1,
         flexDirection: 'row',
         flexWrap: 'wrap',
-        paddingVertical: SIZES.S_10,
     },
     chip: {
+        marginHorizontal: SIZES.S_2,
+        marginVertical: SIZES.S_2,
+    },
+    text: {
         marginHorizontal: SIZES.S_2,
         marginVertical: SIZES.S_2,
     },

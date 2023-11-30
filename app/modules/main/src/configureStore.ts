@@ -22,7 +22,7 @@ export const store = configureStore({
     reducer: {
         eventsDiscovery:eventsDiscovery,
       },
-    //   enhancers: [Reactotron.createEnhancer()],
+    //  enhancers: [Reactotron.createEnhancer()],
     middleware: (getDefaultMiddleware) =>
         getDefaultMiddleware({
             immutableCheck: { warnAfter: 128 }, // We should be moving this lower as we get better

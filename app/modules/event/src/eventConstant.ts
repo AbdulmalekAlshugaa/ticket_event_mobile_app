@@ -98,3 +98,12 @@ export const COUNTRIES: eventsDiscovery.country[] = [
     { code: 'UY', name: 'Uruguay' },
     { code: 'VE', name: 'Venezuela' },
 ];
+
+export const EVENT_SORTING_PARAMS: eventsDiscovery.eventSortingParams[] = [
+    { label: 'Name ascending', value: 'asc', type: 'name' },
+    { label: 'Name descending', value: 'desc',type: 'name' },
+    { label: 'Relevance ascending', value: 'asc',type: 'relevance' },
+    { label: 'Relevance descending', value: 'desc',type: 'relevance' },
+    { label: 'Date ascending', value: 'asc',type: 'date' },
+    { label: 'Date descending', value: 'desc',type: 'date' },
+];
