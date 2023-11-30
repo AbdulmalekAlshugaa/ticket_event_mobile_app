@@ -23,11 +23,10 @@ import EventFilteringModal from './EventFilteringModal';
 const EventListingItemScreen = () => {
     const dispatch = useAppDispatch();
     const [page, setPage] = useState(1);
-    const [countryCode, setCountryCode] = useState('US');
+    const [countryCode, setCountryCode] = useState('');
     const [isModalVisible, setModalVisible] = useState(false);
-    const [isRefetching, setIsRefetching] = useState(false);
 
-    const enterProductListItem = (countryCode: string, page: number, keyword?: string) =>
+    const enterProductListItem = ( page: number,countryCode?: string, keyword?: string) =>
         dispatch(
             eventActions.enterEventList({
                 page: page,
@@ -45,7 +44,7 @@ const EventListingItemScreen = () => {
     const totalPages: number = useSelector(getTotalPagesSelector);
 
     useEffect(() => {
-        enterProductListItem(countryCode, page);
+        enterProductListItem(page);
         return () => {
             exist();
         };
@@ -67,7 +66,7 @@ const EventListingItemScreen = () => {
                 init();
                 exist();
                 setCountryCode(countryCode);
-                enterProductListItem(countryCode, 1);
+                enterProductListItem( 1,countryCode);
                 setPage(1);
             }}
         />
@@ -93,7 +92,7 @@ const EventListingItemScreen = () => {
     const handleOnEndReached = () => {
         if (page === totalPages) return;
         exist();
-        enterProductListItem(countryCode, page + 1);
+        enterProductListItem( page + 1, countryCode && countryCode);
         setPage(page + 1);
     };
 
@@ -117,7 +116,7 @@ const EventListingItemScreen = () => {
     const renderFilterModal = () => <EventFilteringModal visible={isModalVisible} hideModal={hideModal} />;
     const applySearch = useDebounce((value: string) => {
         exist();
-        enterProductListItem(countryCode, page + 1, value);
+        enterProductListItem( page + 1, countryCode&& countryCode, value);
     }, 700); // delay in ms
 
     const renderEventsList = () => (
@@ -145,14 +144,14 @@ const EventListingItemScreen = () => {
             }}
             refreshControl={
                 <RefreshControl
-                    refreshing={isRefetching}
+                    refreshing={false}
                     onRefresh={() => {
-                        setIsRefetching(true);
+                        
                         init();
                         exist();
-                        enterProductListItem('US', 1);
+                        enterProductListItem(1);
                         setPage(1);
-                        setIsRefetching(false);
+                        
                     }}
                 />
             }
