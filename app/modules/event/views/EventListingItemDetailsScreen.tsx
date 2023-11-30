@@ -1,5 +1,5 @@
-import { View,  StyleSheet, ImageBackground, ScrollView } from 'react-native';
-import React,{useEffect} from 'react';
+import { View, StyleSheet, ImageBackground, ScrollView } from 'react-native';
+import React, { useEffect } from 'react';
 import { MainSafeAreaScreen } from '../../main/view';
 import { COLORS, SIZES } from '../../main/src/mainConstants';
 import AppIcon from '../../../components/AppIcon';
@@ -51,39 +51,39 @@ const EventListingItemDetailsScreen = ({ route }) => {
             <View style={styles.productDescriptionView}>
                 <AppBoldText variant={'displaySmall'} title={item.name} />
                 <EventItemDetails title={date} body={item.dates.start.localTime} icon={'calendar'} />
-                <EventItemDetails title={item._embedded.venues[0].country.name} body={item._embedded.venues[0].city.name} icon={'map'} />
-                <AppBoldText style={styles.text}  title={'GeneralInfo'} />
-            <AppBodyText variant={'bodyMedium'} title={item._embedded.venues[0].accessibleSeatingDetail} />
+                <EventItemDetails
+                    title={item._embedded.venues[0].country.name}
+                    body={item._embedded.venues[0].city.name}
+                    icon={'map'}
+                />
+                <AppBoldText style={styles.text} title={'GeneralInfo'} />
+                <AppBodyText variant={'bodyMedium'} title={item._embedded.venues[0].accessibleSeatingDetail} />
             </View>
         );
     };
 
-   
-
     const renderButton = () => {
         const minPrice = item?.priceRanges && item?.priceRanges[0]?.min;
         const maxPrice = item?.priceRanges && item?.priceRanges[0]?.max;
-    
-        const priceRangeString = (minPrice !== undefined && maxPrice !== undefined)
-          ? `${minPrice}-${maxPrice}`
-          : "free"; // You can set a default value
+
+        const priceRangeString = minPrice !== undefined && maxPrice !== undefined ? `${minPrice}-${maxPrice}` : 'free'; // You can set a default value
 
         return (
-        <View style={styles.buttonView}>
-            <View>
-                <AppBodyText style={styles.body} variant={'bodySmall'} title={' Price'} />
-                <AppBoldText title={"$ "+ priceRangeString} variant={'titleMedium'} />
+            <View style={styles.buttonView}>
+                <View>
+                    <AppBodyText style={styles.body} variant={'bodySmall'} title={' Price'} />
+                    <AppBoldText title={'$ ' + priceRangeString} variant={'titleMedium'} />
+                </View>
+                <AppButton label={'Buy Now'} icon="ticket" oPress={() => console.log('Buy Now')} />
             </View>
-            <AppButton label={'Buy Now'} icon="ticket" oPress={() => console.log('Buy Now')} />
-        </View>
-    );}
+        );
+    };
 
     return (
         <>
             <ScrollView style={styles.container} contentContainerStyle={{ flexGrow: 1 }}>
                 {renderEventImage()}
                 {renderEventDetails()}
-          
             </ScrollView>
             {renderButton()}
         </>
@@ -116,7 +116,7 @@ const styles = StyleSheet.create({
         height: '100%',
         justifyContent: 'center',
         alignSelf: 'center',
-    },  
+    },
     productDescriptionView: {
         flex: 1,
         borderTopRightRadius: SIZES.S_8,
