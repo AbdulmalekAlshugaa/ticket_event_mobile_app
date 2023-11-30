@@ -1,4 +1,4 @@
-import { COLORS, SIZES } from 'app/modules/main/src/mainConstants';
+import { COLORS, SIZES } from '../modules/main/src/mainConstants';
 import React, { ReactNode } from 'react';
 import { View, ViewStyle, StyleSheet } from 'react-native';
 import Modal from 'react-native-modal';
@@ -26,7 +26,7 @@ const AppModal: React.FC<AppModalProps> = ({
 }) => {
     return (
         <Modal
-            style={[styles.bottomContainer, centered && styles.centerContainer, containerStyle]}
+            style={[styles.bottomContainer, centered && containerStyle]}
             onBackButtonPress={hideModal}
             onBackdropPress={hideModal}
             isVisible={visible}
@@ -61,9 +61,8 @@ const styles = StyleSheet.create({
         borderRadius: 8,
         paddingBottom: 10,
         backgroundColor: COLORS.secondary,
-        padding: 5,
+        padding: SIZES.S_5,
         overflow: 'hidden',
-        // height: Metrics.screenHeight * 0.6
     },
     centerWrapper: {
         height: null,

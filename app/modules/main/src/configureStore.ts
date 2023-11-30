@@ -3,6 +3,7 @@ import createSagaMiddleware from 'redux-saga';
 import { useDispatch } from 'react-redux'
 import rootSaga from '../daemon';
 import eventsDiscovery from '../../event/src/eventReducer';
+import Reactotron from 'reactotron-react-native';
 
 const sagaMiddleware = createSagaMiddleware({
     onError: (error, { sagaStack }) => {
@@ -21,6 +22,7 @@ export const store = configureStore({
     reducer: {
         eventsDiscovery:eventsDiscovery,
       },
+    //   enhancers: [Reactotron.createEnhancer()],
     middleware: (getDefaultMiddleware) =>
         getDefaultMiddleware({
             immutableCheck: { warnAfter: 128 }, // We should be moving this lower as we get better

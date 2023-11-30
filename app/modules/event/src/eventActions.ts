@@ -10,6 +10,6 @@ export const eventActions = {
     exitEventList: createAction('EVENT/EXIT_EVENT_LIST'),
     getEvents: createAction<{ id: number }>('EVENT/GET_EVENTS'),
     dropOffEvent: createAction('EVENT/DROP_OFF_EVENT'),
-    exitEvent: createAction('EVENT/EXIT_EVENT'),
+
     getEventDetail: createAction<{ id: number }>('EVENT/GET_EVENT_DETAIL'),
 } as const;

@@ -19,6 +19,17 @@ const EVENT_INIT_STATE: eventsDiscovery.state = {
     isLoading: false,
 };
 
+const EVENT_FILTER_INIT_STATE: eventsDiscovery.eventRequest = {
+    page: 0,
+    size: 10,
+    search: '',
+    countryCode: '',
+    keyword: '',
+    includeTBA: 'no',
+    includeTBD: 'no',
+};
+
+
 const events = createReducer(EVENT_INIT_STATE, builder => {
     builder
         .addCase(eventActions.eventResetState, state => {
@@ -55,13 +66,31 @@ const events = createReducer(EVENT_INIT_STATE, builder => {
         });
 });
 
-const resetState = () => ({ type: eventActions.eventResetState.type });
-
-// Export the main reducer and the action creator
-export { resetState };
+const eventFilter = createReducer(EVENT_FILTER_INIT_STATE, builder => {
+    builder
+        .addCase(eventActions.enterEventList, (state, action) => {
+            state.page = action.payload.page;
+            state.size = action.payload.size;
+            state.search = action.payload.search;
+            state.countryCode = action.payload.countryCode;
+            state.keyword = action.payload.keyword;
+            state.includeTBA = action.payload.includeTBA;
+            state.includeTBD = action.payload.includeTBD;
+        })
+        .addCase(eventActions.dropOffEvent, (state) => {
+            state.page = 0;
+            state.size = 10;
+            state.search = '';
+            state.countryCode = '';
+            state.keyword = '';
+            state.includeTBA = 'no';
+            state.includeTBD = 'no';
+        });
+});
 
 const eventsDiscovery = combineReducers({
     events,
+    eventFilter,
 });
 
 export default eventsDiscovery;

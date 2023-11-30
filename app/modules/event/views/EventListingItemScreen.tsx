@@ -15,21 +15,22 @@ import {
     isLoadingSelector,
     errorMessagesSelector,
     getTotalPagesSelector,
-    eventSelector,
 } from '../src/eventSelectors';
 import { ActivityIndicator } from 'react-native-paper';
 import { useDebounce } from '../../../modules/main/hooks/useDebounce';
+import EventFilteringModal from './EventFilteringModal';
 
 const EventListingItemScreen = () => {
     const dispatch = useAppDispatch();
     const [page, setPage] = useState(1);
     const [countryCode, setCountryCode] = useState('US');
+    const [isModalVisible, setModalVisible] = useState(false);
 
     const enterProductListItem = (countryCode: string, page: number, keyword?: string) =>
         dispatch(
             eventActions.enterEventList({
                 page: page,
-                size: 10,
+                size: 20,
                 countryCode: countryCode,
                 keyword: keyword,
             }),
@@ -37,9 +38,9 @@ const EventListingItemScreen = () => {
     const exist = () => dispatch(eventActions.exitEventList());
     const init = () => dispatch(eventActions.eventResetState());
     const eventsData = useSelector(getEventsSelector);
-    const isLoading = useSelector(isLoadingSelector);
-    const errorMessages = useSelector(errorMessagesSelector);
-    const totalPages = useSelector(getTotalPagesSelector);
+    const isLoading: boolean = useSelector(isLoadingSelector);
+    const errorMessages: string = useSelector(errorMessagesSelector);
+    const totalPages: number = useSelector(getTotalPagesSelector);
 
     useEffect(() => {
         enterProductListItem(countryCode, page);
@@ -72,7 +73,13 @@ const EventListingItemScreen = () => {
 
     const renderFilter = () => (
         <TouchableOpacity style={styles.filterContainer}>
-            <AppIcon onPress={exist} style={{ alignSelf: 'center' }} name={'filter'} color={COLORS.black} size={24} />
+            <AppIcon
+                onPress={() => setModalVisible(true)}
+                style={{ alignSelf: 'center' }}
+                name={'filter'}
+                color={COLORS.black}
+                size={24}
+            />
         </TouchableOpacity>
     );
     const renderSearchContainer = () => (
@@ -83,7 +90,6 @@ const EventListingItemScreen = () => {
     );
     const handleOnEndReached = () => {
         if (page === totalPages) return;
-
         exist();
         enterProductListItem(countryCode, page + 1);
         setPage(page + 1);
@@ -103,6 +109,15 @@ const EventListingItemScreen = () => {
             </View>
         );
     };
+    const hideModal = () => {
+        setModalVisible(false);
+    };
+    const renderFilterModal = () => (
+        <EventFilteringModal
+            visible={isModalVisible}
+            hideModal={hideModal}
+        />
+    );
     const applySearch = useDebounce((value: string) => {
         console.log('value', value);
         exist();
@@ -145,6 +160,7 @@ const EventListingItemScreen = () => {
     );
     return (
         <>
+            {renderFilterModal()}
             {renderSearchContainer()}
             {renderCountrySelection()}
             {isLoading && page === 1 ? (
@@ -186,6 +202,11 @@ const styles = StyleSheet.create({
         borderRadius: SIZES.S_8,
         backgroundColor: COLORS.lightGrey,
         flex: 1,
+    },
+    containerStyle: {
+        justifyContent: 'flex-end',
+        marginHorizontal: SIZES.S_7,
+        backgroundColor: COLORS.secondary,
     },
 });
 

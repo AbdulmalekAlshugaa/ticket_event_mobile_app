@@ -28,3 +28,7 @@ export const getTotalPagesSelector = createSelector(eventSelector, events => {
     }
     return 0;
 });
+
+export const getEventFilterSelector = (state: any) => state.eventsDiscovery.eventFilter;
+
+
