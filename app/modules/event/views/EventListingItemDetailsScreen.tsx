@@ -31,32 +31,7 @@ const EventListingItemDetailsScreen = () => {
 
     const renderEventDetails = () => (
         <View style={styles.productDescriptionView}>
-            <AppBoldText
-                variant={'displaySmall'}
-                style={styles.descriptionTitle}
-                title={'International Band Music Concert'}
-            />
-            <AppBodyText style={styles.descriptionTitle} title={'Description'} />
-            <AppBodyText
-                style={styles.description}
-                title={
-                    'Lorem ipsum dolor sit amet, consectetur adipiscing elit. In sed neque euismod, aliquet ex id, eleifend odio. Donec auctor, quam eget tincidunt aliquam, elit nunc faucibus nisl, quis aliquet nisl nisl eu nibh. Donec auctor, quam eget tincidunt aliquam, elit nunc faucibus nisl, quis aliquet nisl nisl eu nibh.'
-                }
-            />
-            <AppBoldText style={styles.descriptionTitle} title={'Date'} />
-            <AppBodyText
-                style={styles.description}
-                title={
-                    'Lorem ipsum dolor sit amet, consectetur adipiscing elit. In sed neque euismod, aliquet ex id, eleifend odio. Donec auctor, quam eget tincidunt aliquam, elit nunc faucibus nisl, quis aliquet nisl nisl eu nibh. Donec auctor, quam eget tincidunt aliquam, elit nunc faucibus nisl, quis aliquet nisl nisl eu nibh.'
-                }
-            />
-            <AppBoldText style={styles.descriptionTitle} title={'Location'} />
-            <AppBodyText
-                style={styles.description}
-                title={
-                    'Lorem ipsum dolor sit amet, consectetur adipiscing elit. In sed neque euismod, aliquet ex id, eleifend odio. Donec auctor, quam eget tincidunt aliquam, elit nunc faucibus nisl, quis aliquet nisl nisl eu nibh. Donec auctor, quam eget tincidunt aliquam, elit nunc faucibus nisl, quis aliquet nisl nisl eu nibh.'
-                }
-            />
+           
         </View>
     );
 

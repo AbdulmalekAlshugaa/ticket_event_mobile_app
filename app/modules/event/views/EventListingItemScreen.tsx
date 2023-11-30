@@ -25,6 +25,7 @@ const EventListingItemScreen = () => {
     const [page, setPage] = useState(1);
     const [countryCode, setCountryCode] = useState('US');
     const [isModalVisible, setModalVisible] = useState(false);
+    const [isRefetching, setIsRefetching] = useState(false);
 
     const enterProductListItem = (countryCode: string, page: number, keyword?: string) =>
         dispatch(
@@ -112,12 +113,7 @@ const EventListingItemScreen = () => {
     const hideModal = () => {
         setModalVisible(false);
     };
-    const renderFilterModal = () => (
-        <EventFilteringModal
-            visible={isModalVisible}
-            hideModal={hideModal}
-        />
-    );
+    const renderFilterModal = () => <EventFilteringModal visible={isModalVisible} hideModal={hideModal} />;
     const applySearch = useDebounce((value: string) => {
         console.log('value', value);
         exist();
@@ -148,14 +144,19 @@ const EventListingItemScreen = () => {
                 }
                 return null;
             }}
-            // refreshControl={
-            //   <RefreshControl
-            //     refreshing={isRefetching}
-            //     onRefresh={() => {
-            //       refetch();
-            //     }}
-            //   />
-            // }
+            refreshControl={
+                <RefreshControl
+                    refreshing={isRefetching}
+                    onRefresh={() => {
+                        setIsRefetching(true);
+                        init();
+                        exist();
+                        enterProductListItem('US', 1);
+                        setPage(1);
+                        setIsRefetching(false);
+                    }}
+                />
+            }
         />
     );
     return (
