@@ -60,15 +60,23 @@ const EventListingItemDetailsScreen = ({ route }) => {
 
    
 
-    const renderButton = () => (
+    const renderButton = () => {
+        const minPrice = item?.priceRanges && item?.priceRanges[0]?.min;
+        const maxPrice = item?.priceRanges && item?.priceRanges[0]?.max;
+    
+        const priceRangeString = (minPrice !== undefined && maxPrice !== undefined)
+          ? `${minPrice}-${maxPrice}`
+          : "free"; // You can set a default value
+
+        return (
         <View style={styles.buttonView}>
             <View>
                 <AppBodyText style={styles.body} variant={'bodySmall'} title={' Price'} />
-                <AppBoldText title={"$ "+ item.priceRanges[0].min+"-"+item.priceRanges[0].max} variant={'titleMedium'} />
+                <AppBoldText title={"$ "+ priceRangeString} variant={'titleMedium'} />
             </View>
             <AppButton label={'Buy Now'} icon="ticket" oPress={() => console.log('Buy Now')} />
         </View>
-    );
+    );}
 
     return (
         <>
