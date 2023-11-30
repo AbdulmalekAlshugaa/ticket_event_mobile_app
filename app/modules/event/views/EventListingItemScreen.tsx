@@ -158,7 +158,7 @@ const EventListingItemScreen = () => {
             {renderCountrySelection()}
             {isLoading && page === 1 ? (
                 <MainLoadingScreen />
-            ) : eventsData.length > 0 ? (
+            ) : eventsData.length > 0 && !isLoading? (
                 <MainSafeAreaScreen>{renderEventsList()}</MainSafeAreaScreen>
             ) : (
                 <MainErrorsScreen title={errorMessages} />
