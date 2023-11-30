@@ -7,7 +7,6 @@ interface MainErrorsScreenProps {
 }
 
 const MainErrorsScreen = (props: MainErrorsScreenProps) => {
-    props.title = 'Something went wrong. Please try again later.';
     return (
         <View style={styles.container}>
             <AppBodyText title={props.title} />

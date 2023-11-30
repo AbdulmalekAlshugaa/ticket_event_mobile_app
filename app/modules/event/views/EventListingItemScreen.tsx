@@ -42,6 +42,8 @@ const EventListingItemScreen = () => {
     const isLoading: boolean = useSelector(isLoadingSelector);
     const errorMessages: string = useSelector(errorMessagesSelector);
     const totalPages: number = useSelector(getTotalPagesSelector);
+    console.log(eventsData.length)
+    console.log(errorMessages)
 
     useEffect(() => {
         enterProductListItem(page);
@@ -166,12 +168,9 @@ const EventListingItemScreen = () => {
                 <MainLoadingScreen />
             ) : eventsData.length > 0 ? (
                 <MainSafeAreaScreen>{renderEventsList()}</MainSafeAreaScreen>
+                
             ) : (
-                <>
-                    <MainSafeAreaScreen>
-                        <MainErrorsScreen title={errorMessages} />
-                    </MainSafeAreaScreen>
-                </>
+                <MainErrorsScreen title={errorMessages} />
             )}
         </>
     );

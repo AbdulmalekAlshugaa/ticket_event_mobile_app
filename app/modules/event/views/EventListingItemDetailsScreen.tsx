@@ -108,8 +108,7 @@ const styles = StyleSheet.create({
         height: '100%',
         justifyContent: 'center',
         alignSelf: 'center',
-    },
-
+    },  
     productDescriptionView: {
         flex: 1,
         borderTopRightRadius: SIZES.S_8,
