@@ -41,3 +41,7 @@ The above two screenshots shows how we utilized saga pattern design within our p
 | ----------- | ----------- | ----------- | 
 |![Simulator Screen Shot - iPhone 13 - 2023-12-01 at 00 42 05](https://github.com/AbdulmalekAlshugaa/ticket_event_mobile_app/assets/33663456/6884ac20-f83d-40fd-9893-0c7fef1cd133)|![Simulator Screen Shot - iPhone 13 - 2023-12-01 at 00 42 12](https://github.com/AbdulmalekAlshugaa/ticket_event_mobile_app/assets/33663456/c7254ae3-0701-41de-ab94-19213fb616e4)| ![Simulator Screen Shot - iPhone 13 - 2023-12-01 at 00 44 59](https://github.com/AbdulmalekAlshugaa/ticket_event_mobile_app/assets/33663456/29464a54-49c2-4367-a157-84cbecbff1d2)
 
+### Unit Test
+|![Screenshot 2023-12-01 at 1 20 31 AM](https://github.com/AbdulmalekAlshugaa/ticket_event_mobile_app/assets/33663456/261767e6-b5b9-4e28-8650-3b8425cfdbcb)|
+
+
