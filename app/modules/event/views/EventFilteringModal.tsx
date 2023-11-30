@@ -9,7 +9,6 @@ import { useSelector } from 'react-redux';
 import { getEventFilterSelector } from '../src/eventSelectors';
 import { EVENT_SORTING_PARAMS } from '../src/eventConstant';
 
-
 interface EventFilteringModalProps {
     visible: boolean;
     hideModal: () => void;

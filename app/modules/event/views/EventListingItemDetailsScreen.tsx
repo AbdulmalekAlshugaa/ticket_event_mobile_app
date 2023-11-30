@@ -5,8 +5,12 @@ import { COLORS, SIZES } from '../../main/src/mainConstants';
 import AppIcon from '../../../components/AppIcon';
 import { goBack } from '../../navigation/RootNavigation';
 import { AppBodyText, AppBoldText, AppButton } from '../../../components';
+import EventItemDetails from './EventItemDetails';
+import { formatDateString } from '../src/eventUtils';
 
-const EventListingItemDetailsScreen = () => {
+const EventListingItemDetailsScreen = ({ route }) => {
+    const { item } = route.params;
+
     const renderEventImage = () => (
         <MainSafeAreaScreen style={styles.imageBackground}>
             <ImageBackground
@@ -29,11 +33,17 @@ const EventListingItemDetailsScreen = () => {
         </MainSafeAreaScreen>
     );
 
-    const renderEventDetails = () => (
-        <View style={styles.productDescriptionView}>
-           
-        </View>
-    );
+    const renderEventDetails = () => {
+        const date = formatDateString(item.dates.start.dateTime, 'DD MMMM, YYYY');
+        const time = formatDateString(item.dates.start.dateTime, 'dddd, h:mma');
+        return (
+            <View style={styles.productDescriptionView}>
+                <AppBoldText variant={'displaySmall'} title={item.name} />
+                <EventItemDetails title={date} body={item.dates.start.localTime} icon={'calendar'} />
+                <EventItemDetails title={'Time'} body={'7:00 PM'} icon={'calendar'} />
+            </View>
+        );
+    };
 
     const renderButton = () => (
         <View style={styles.buttonView}>
@@ -64,11 +74,18 @@ const styles = StyleSheet.create({
         height: SIZES.height / 3,
         width: SIZES.width,
     },
-    subViewContainer: {
-        bottom: 50,
-        position: 'absolute',
-        alignSelf: 'flex-end',
-        padding: SIZES.S_10,
+    eventDateView: {
+        flexDirection: 'row',
+        marginHorizontal: SIZES.S_8,
+        flex: 0.1,
+    },
+    calenderContainer: {
+        width: 50,
+        height: 50,
+        borderRadius: SIZES.S_8,
+        backgroundColor: COLORS.secondary,
+        justifyContent: 'center',
+        alignItems: 'center',
     },
     image: {
         width: '100%',
@@ -76,9 +93,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignSelf: 'center',
     },
-    icon: {
-        marginVertical: SIZES.S_5,
-    },
+
     productDescriptionView: {
         flex: 1,
         borderTopRightRadius: SIZES.S_8,
@@ -94,19 +109,8 @@ const styles = StyleSheet.create({
         shadowOpacity: 1,
         padding: SIZES.S_8,
     },
-    descriptionTitle: {
-        marginTop: SIZES.S_8,
-    },
-    description: {
-        marginTop: SIZES.S_2,
-        color: COLORS.gray,
-    },
     body: {
         color: COLORS.gray,
-    },
-    productRattingView: {
-        alignItems: 'center',
-        flexDirection: 'row',
     },
     buttonView: {
         flexDirection: 'row',
@@ -118,12 +122,6 @@ const styles = StyleSheet.create({
     backButton: {
         marginVertical: SIZES.S_5,
         marginHorizontal: SIZES.S_5,
-    },
-    badge: {
-        position: 'absolute',
-        top: 0,
-        right: 15,
-        zIndex: 10,
     },
 });
 
