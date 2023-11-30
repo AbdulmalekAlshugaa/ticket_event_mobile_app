@@ -10,7 +10,6 @@ import { formatDateString } from '../src/eventUtils';
 
 const EventListingItemDetailsScreen = ({ route }) => {
     const { item } = route.params;
-    console.log(item);
 
     const renderEventImage = () => (
         <MainSafeAreaScreen style={styles.imageBackground}>
