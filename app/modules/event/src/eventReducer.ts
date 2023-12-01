@@ -15,7 +15,7 @@ const events = createReducer(EVENT_INIT_STATE, builder => {
                 totalPages: 0,
                 number: 0,
             };
-            state.ok = true;
+            state.ok = false;
         })
         .addCase(eventActions.enterEventList, state => {
             state.isLoading = true;
@@ -31,11 +31,9 @@ const events = createReducer(EVENT_INIT_STATE, builder => {
             state.data.page = action.payload.page;
             state.ok = true;
         })
-        .addCase(eventActions.dropOffEvent, (state, action) => {
-            state.data._embedded = action.payload;
+        .addCase(eventActions.exitEventList, state => {
             state.isLoading = false;
-            state.ok = false;
-        });
+        })
 });
 
 const eventFilter = createReducer(EVENT_FILTER_INIT_STATE, builder => {
@@ -49,15 +47,6 @@ const eventFilter = createReducer(EVENT_FILTER_INIT_STATE, builder => {
             state.includeTBA = action.payload.includeTBA;
             state.includeTBD = action.payload.includeTBD;
         })
-        .addCase(eventActions.dropOffEvent, (state) => {
-            state.page = 0;
-            state.size = 10;
-            state.search = '';
-            state.countryCode = '';
-            state.keyword = '';
-            state.includeTBA = 'no';
-            state.includeTBD = 'no';
-        });
 });
 
 const eventsDiscovery = combineReducers({

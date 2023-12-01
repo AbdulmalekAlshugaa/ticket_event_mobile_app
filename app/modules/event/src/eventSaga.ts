@@ -11,8 +11,8 @@ export function* eventMainRuntime(): any {
             const eventDetailsTask = yield fork(eventDetails);
             yield take(eventActions.exitEventList);
             yield cancel([task, eventDetailsTask]);
-        } catch (error) {
-            console.log(error);
+        } catch (error: any) {
+            yield put(eventActions.eventListFailure(error.message));
         }
     }
 }
@@ -23,8 +23,8 @@ export function* eventListRuntime(payload: eventsDiscovery.eventRequest): any {
             const response: eventsDiscovery.state = yield call(getEvents, payload);
             yield put(eventActions.eventListSuccess(response.data));
             yield take(eventActions.exitEventList);
-        } catch (error) {
-            console.log(error);
+        } catch (error: any) {
+            yield put(eventActions.eventListFailure(error.message));
         }
     }
 }
