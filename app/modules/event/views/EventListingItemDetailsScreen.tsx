@@ -33,13 +33,11 @@ const EventListingItemDetailsScreen = ({ route }) => {
                 }}
                 style={styles.imageBackground}
             >
-                <AppIcon
-                    style={styles.backButton}
-                    name={'arrow-left'}
-                    color={COLORS.black}
-                    size={24}
-                    onPress={dropOff}
-                />
+                
+                <View style={styles.iconContainer}>
+                <AppIcon onPress={dropOff} color={COLORS.white}  name={'arrow-left'} size={24} />
+            </View>
+              
             </ImageBackground>
         </MainSafeAreaScreen>
     );
@@ -148,6 +146,15 @@ const styles = StyleSheet.create({
     text: {
         marginTop: SIZES.S_5,
         marginBottom: SIZES.S_2,
+    },
+    iconContainer: {
+        width: 30,
+        height: 30,
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderRadius: SIZES.width * 0.1,
+        backgroundColor: COLORS.lightGrey,
+        margin: SIZES.S_5,
     },
 });
 
