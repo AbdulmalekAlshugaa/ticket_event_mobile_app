@@ -56,9 +56,9 @@ const EventCountrySelectionModal = (props: EventCountrySelectionModalProps) => {
     };
 
     const renderFilter = () => (
-        <TouchableOpacity style={styles.filterContainer}>
+        <TouchableOpacity onPress={show} style={styles.filterContainer}>
             <AppBoldText title={country} />
-            <AppIcon name={'chevron-down'} size={24} onPress={show} color={COLORS.black} />
+            <AppIcon name={'chevron-down'} size={24}  color={COLORS.black} />
         </TouchableOpacity>
     );
 

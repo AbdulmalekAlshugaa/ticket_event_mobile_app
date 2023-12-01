@@ -25,6 +25,7 @@ const EventListingItemScreen = () => {
     const [countryCode, setCountryCode] = useState('');
     const [isModalVisible, setModalVisible] = useState(false);
 
+    // Actions
     const enterEventListItem = (page: number, countryCode?: string, keyword?: string) =>
         dispatch(
             eventActions.enterEventList({
@@ -37,6 +38,8 @@ const EventListingItemScreen = () => {
     const exist = () => dispatch(eventActions.exitEventList());
     const init = () => dispatch(eventActions.eventResetState());
     const enterEventDetails = (item: any) => dispatch(eventActions.enterEventDetails(item));
+
+   // Selectors 
     const eventsData = useSelector(getEventsSelector);
     const isLoading: boolean = useSelector(isLoadingSelector);
     const errorMessages: string = useSelector(errorMessagesSelector);
