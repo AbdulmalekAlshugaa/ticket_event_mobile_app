@@ -14,7 +14,8 @@ import {
     isLoadingSelector,
     errorMessagesSelector,
     getTotalPagesSelector,
-    isOkSelector
+    isOkSelector,
+    getErrorMessages,
 } from '../src/eventSelectors';
 import { ActivityIndicator } from 'react-native-paper';
 import { useDebounce } from '../../../modules/main/hooks/useDebounce';
@@ -43,7 +44,7 @@ const EventListingItemScreen = () => {
     // Selectors
     const eventsData = useSelector(getEventsSelector);
     const isLoading: boolean = useSelector(isLoadingSelector);
-    const isOk: boolean = useSelector(isOkSelector);
+    const getError = useSelector(getErrorMessages);
     const errorMessages: string = useSelector(errorMessagesSelector);
     const totalPages: number = useSelector(getTotalPagesSelector);
     console.log(eventsData.length);
@@ -155,11 +156,18 @@ const EventListingItemScreen = () => {
             }
         />
     );
+    const renderError = () => {
+        if (getError) {
+            return <MainErrorsScreen title={errorMessages} />;
+        }
+    };
     return (
         <>
+            
             {renderFilterModal()}
             {renderSearchContainer()}
             {renderCountrySelection()}
+            {renderError()}
             {isLoading && page === 1 ? (
                 <MainLoadingScreen />
             ) : (

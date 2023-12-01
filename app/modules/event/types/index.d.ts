@@ -6,6 +6,7 @@ declare namespace eventsDiscovery {
         ok: boolean;
         problem: string;
         isLoading: boolean;
+        errorMessages?: string;
     }
 
     interface eventRequest {

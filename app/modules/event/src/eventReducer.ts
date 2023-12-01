@@ -26,6 +26,7 @@ const events = createReducer(EVENT_INIT_STATE, builder => {
                 state.data._embedded.events = state.data._embedded.events.concat(action.payload._embedded.events);
             } else {
                 state.data._embedded.events = [];
+                state.errorMessages = 'No events found';
             }
             state.data._links = action.payload._links;
             state.data.page = action.payload.page;
@@ -33,7 +34,14 @@ const events = createReducer(EVENT_INIT_STATE, builder => {
         })
         .addCase(eventActions.exitEventList, state => {
             state.isLoading = false;
-        })
+        }).addMatcher(
+            action => action.type.endsWith('/FAILURE'),
+            (state, action) => {
+                state.isLoading = false;
+                state.errorMessages = action.payload;
+            },
+        );
+
 });
 
 const eventFilter = createReducer(EVENT_FILTER_INIT_STATE, builder => {

@@ -23,6 +23,9 @@ export const errorMessagesSelector = createSelector(eventSelector, events => {
     return 'error';
 });
 
+export const getErrorMessages = (state: any) => state.eventsDiscovery.events.errorMessages;
+
+
 export const getTotalPagesSelector = createSelector(eventSelector, events => {
     if (events.data && events.data.page) {
         return events.data.page.totalPages;
