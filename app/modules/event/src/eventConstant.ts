@@ -1,4 +1,5 @@
 export const EVENT_SCREEN_NAMES = Object.freeze({
+    EVENT_HOME_SCREEN: 'EventHomeScreen',
     EVENT_LISTING_ITEM: 'EventListingItem',
     EVENT_LISTING_ITEM_DETAILS: 'EventListingItemDetails',
 });

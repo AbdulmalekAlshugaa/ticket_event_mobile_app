@@ -1,4 +1,4 @@
-import { StyleSheet, ViewStyle } from 'react-native';
+import { StyleSheet, ViewStyle,TouchableOpacity } from 'react-native';
 import React, { useState } from 'react';
 import { Searchbar } from 'react-native-paper';
 import { COLORS, SIZES } from '../modules/main/src/mainConstants';
@@ -29,7 +29,9 @@ const AppSearch = (props: AppSearchProps) => {
     };
 
     return (
+       
         <Searchbar
+            onPressIn={() => inputRef.focus()}
             value={inputString}
             style={[styles.container, props.style]}
             inputStyle={{ fontSize: 14, height: 20, color: COLORS.black }}

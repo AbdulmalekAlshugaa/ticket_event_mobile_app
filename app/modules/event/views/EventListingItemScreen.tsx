@@ -14,7 +14,6 @@ import {
     isLoadingSelector,
     errorMessagesSelector,
     getTotalPagesSelector,
-    isOkSelector,
     getErrorMessages,
 } from '../src/eventSelectors';
 import { ActivityIndicator } from 'react-native-paper';
