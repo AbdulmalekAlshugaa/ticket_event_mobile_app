@@ -68,7 +68,6 @@ const EventHomeScreen = () => {
                 autoPlay={true}
                 data={eventsData}
                 scrollAnimationDuration={1000}
-                onSnapToItem={index => console.log('current index:', index)}
                 renderItem={({ item }) => renderItem({ item })}
             />
         </View>
@@ -76,7 +75,7 @@ const EventHomeScreen = () => {
 
     const renderEvents = (item: any) => (
         <EventItem
-            onPress={() => enterEventDetails(item)}
+            onPress={() => navigateTo(EVENT_SCREEN_NAMES.EVENT_LISTING_ITEM, { item: item })}
             title={item.name}
             image={item.images[0].url}
             body={item?.promoter?.description}
@@ -91,7 +90,7 @@ const EventHomeScreen = () => {
 
             <FlatList
                 horizontal
-                data={eventsData}
+                data={latestSearch.slice(0, 3)}
                 showsVerticalScrollIndicator={false}
                 alwaysBounceVertical={false}
                 renderItem={({ item }) => {
