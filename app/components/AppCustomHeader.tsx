@@ -13,7 +13,7 @@ interface AppCustomHeaderProps {
 const AppCustomHeader = (props: AppCustomHeaderProps) => {
     return (
         <View style={styles.container}>
-            <AppIcon style={styles.icon} name={props.icon} size={24} onPress={props.onPress} color={COLORS.gray} />
+            <AppIcon style={styles.icon} name={props.icon} size={24} onPress={props.onPress} color={COLORS.black} />
             <AppBoldText style={styles.title} title={props.title} />
         </View>
     );

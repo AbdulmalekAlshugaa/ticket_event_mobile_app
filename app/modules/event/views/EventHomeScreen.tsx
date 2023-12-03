@@ -10,7 +10,6 @@ import Carousel from 'react-native-reanimated-carousel';
 import EventHomeCarousel from './EventHomeCarousel';
 import { formatDateString } from '../src/eventUtils';
 import { Card } from 'react-native-paper';
-import App from 'App';
 import { navigateTo } from '../../navigation/RootNavigation';
 import { EVENT_SCREEN_NAMES } from '../src/eventConstant';
 import EventItem from './EventItem';
@@ -26,13 +25,16 @@ const EventHomeScreen = () => {
                 keyword: keyword,
             }),
         );
-    const exist = () => dispatch(eventActions.exitEventList());
+    const exist = () => dispatch(eventActions.exitHome());
     // selectors
     const eventsData = useSelector(getEventsSelector);
     const latestSearch = useSelector(getLatestSearchSelector);
-    console.log(latestSearch);
+    const enterEventDetails = (item: any) => dispatch(eventActions.enterEventDetails(item));
+    const enterHome = () => dispatch(eventActions.enterHome());
 
     useEffect(() => {
+        enterHome();
+        // call api to get events // work around for now
         enterEventListItem(1);
         return () => {
             exist();
@@ -46,9 +48,7 @@ const EventHomeScreen = () => {
                 eventName={item.name}
                 eventDate={date}
                 image={item.images[0].url}
-                onPress={() => {
-                    console.log('item', item);
-                }}
+                onPress={() => enterEventDetails(item)}
             />
         );
     };
@@ -75,7 +75,7 @@ const EventHomeScreen = () => {
 
     const renderEvents = (item: any) => (
         <EventItem
-            onPress={() => navigateTo(EVENT_SCREEN_NAMES.EVENT_LISTING_ITEM_DETAILS, { item: item })}
+            onPress={() => enterEventDetails(item)}
             title={item.name}
             image={item.images[0].url}
             body={item?.promoter?.description}

@@ -33,11 +33,9 @@ const EventListingItemDetailsScreen = ({ route }) => {
                 }}
                 style={styles.imageBackground}
             >
-                
                 <View style={styles.iconContainer}>
-                <AppIcon onPress={dropOff} color={COLORS.white}  name={'arrow-left'} size={24} />
-            </View>
-              
+                    <AppIcon onPress={dropOff} color={COLORS.white} name={'arrow-left'} size={24} />
+                </View>
             </ImageBackground>
         </MainSafeAreaScreen>
     );

@@ -5,7 +5,7 @@ import AppSearch from '../../../components/AppSearch';
 import EventItem from './EventItem';
 import { MainLoadingScreen, MainSafeAreaScreen, MainErrorsScreen } from '../../main/view';
 import EventCountrySelectionModal from './EventCountrySelectionModal';
-import { AppIcon } from '../../../components';
+import { AppCustomHeader, AppIcon } from '../../../components';
 import { useAppDispatch } from '../../main/src/configureStore';
 import { eventActions } from '../src/eventActions';
 import { useSelector } from 'react-redux';
@@ -39,6 +39,7 @@ const EventListingItemScreen = () => {
     const exist = () => dispatch(eventActions.exitEventList());
     const init = () => dispatch(eventActions.eventResetState());
     const enterEventDetails = (item: any) => dispatch(eventActions.enterEventDetails(item));
+    const dropOff = () => dispatch(eventActions.dropOffEventList());
 
     // Selectors
     const eventsData = useSelector(getEventsSelector);
@@ -46,12 +47,12 @@ const EventListingItemScreen = () => {
     const getError = useSelector(getErrorMessages);
     const errorMessages: string = useSelector(errorMessagesSelector);
     const totalPages: number = useSelector(getTotalPagesSelector);
-    console.log(eventsData.length);
-    console.log(errorMessages);
+  
 
     useEffect(() => {
+        enterEventListItem(1);
         return () => {
-            exist();
+            exist(); 
         };
     }, []);
 
@@ -160,18 +161,19 @@ const EventListingItemScreen = () => {
         }
     };
     return (
-        <>
-            
+        <MainSafeAreaScreen>
+            <View style={{
+                marginHorizontal: SIZES.S_5,
+            }}>
+            <AppCustomHeader onPress={dropOff}  title={'Search '} icon="arrow-left" />
+            </View>
+
             {renderFilterModal()}
             {renderSearchContainer()}
             {renderCountrySelection()}
             {renderError()}
-            {isLoading && page === 1 ? (
-                <MainLoadingScreen />
-            ) : (
-                <MainSafeAreaScreen>{renderEventsList()}</MainSafeAreaScreen>
-            )}
-        </>
+            {isLoading && page === 1 ? <MainLoadingScreen /> : <View>{renderEventsList()}</View>}
+        </MainSafeAreaScreen>
     );
 };
 
@@ -210,6 +212,12 @@ const styles = StyleSheet.create({
         borderTopWidth: 1,
         borderColor: '#CED0CE',
         justifyContent: 'center',
+    },
+    iconContainer: {
+        position: 'absolute',
+        top: SIZES.S_5,
+        left: SIZES.S_5,
+        zIndex: 1,
     },
 });
 

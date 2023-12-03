@@ -1,38 +1,44 @@
 import { cancel, fork, put, take, call } from 'redux-saga/effects';
 import { eventActions } from './eventActions';
 import { getEvents } from './eventApi';
-import { navigateTo,goBack } from '../../navigation/RootNavigation';
+import { navigateTo, goBack } from '../../navigation/RootNavigation';
 
+// export function* eventMainRuntime(): any {
+//     while (true) {
+//         try {
+//              yield take(eventActions.enterHome);
+//             const search = yield fork(searchRuntime);
+//             yield take(eventActions.exitHome);
+//             yield cancel(search);
+//         } catch (error: any) {
+//             yield put(eventActions.eventListFailure(error.message));
+//         }
+//     }
+// }
 export function* eventMainRuntime(): any {
     while (true) {
         try {
             const { payload } = yield take(eventActions.enterEventList);
-            const task = yield fork(eventListRuntime, payload);
-            const eventDetailsTask = yield fork(eventDetails);
+             yield call(eventListFlow, payload);
+            const eventDetailsTask = yield fork(eventDetailsRuntime);
+            const dropOffEventList = yield fork(eventListingDropOffRuntime);
             yield take(eventActions.exitEventList);
-            yield cancel([task, eventDetailsTask]);
+            yield cancel([eventDetailsTask,dropOffEventList]);
         } catch (error: any) {
             yield put(eventActions.eventListFailure(error.message));
         }
     }
 }
 
-export function* eventListRuntime(payload: eventsDiscovery.eventRequest) {
-    while (true) {
-        try {
-            const response: eventsDiscovery.state = yield call(getEvents, payload);
-            yield put(eventActions.eventListSuccess(response.data));
-            if (payload.keyword && payload.keyword.length > 0) {
-                yield put(eventActions.latestEventSearch(response.data._embedded.events));
-            }
-            yield take(eventActions.exitEventList);
-        } catch (error: any) {
-            yield put(eventActions.eventListFailure(error.message));
-        }
+export function* eventListFlow(payload: eventsDiscovery.eventRequest): any {
+    const response: eventsDiscovery.state = yield call(getEvents, payload);
+    yield put(eventActions.eventListSuccess(response.data));
+    if (payload.keyword && payload.keyword.length > 0) {
+        yield put(eventActions.latestEventSearch(response.data._embedded.events));
     }
 }
 
-export function* eventDetails(): any {
+export function* eventDetailsRuntime(): any {
     while (true) {
         const { payload } = yield take(eventActions.enterEventDetails);
         navigateTo('EventListingItemDetails', { item: payload });
@@ -44,8 +50,16 @@ export function* eventDetails(): any {
 
 export function* eventDropOffRuntime() {
     while (true) {
-      yield take(eventActions.dropOffEventDetails);
-      // it safe to call goBack() 
-      goBack();
+        yield take(eventActions.dropOffEventDetails);
+        // it safe to call goBack()
+        goBack();
     }
-  }
+}
+
+export function* eventListingDropOffRuntime() {
+    while (true) {
+        yield take(eventActions.dropOffEventList);
+        // it safe to call goBack()
+        goBack();
+    }
+}
