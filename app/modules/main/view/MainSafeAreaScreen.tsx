@@ -19,6 +19,7 @@ const MainSafeAreaScreen: React.FC<React.PropsWithChildren<MainSafeAreaScreenOwn
 const styles = StyleSheet.create({
     containerView: {
         backgroundColor: COLORS.white,
+        flex: 1,
     },
 });
 

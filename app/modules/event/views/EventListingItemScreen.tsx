@@ -98,7 +98,7 @@ const EventListingItemScreen = () => {
     const renderFooter = () => {
         return (
             <View style={styles.footer}>
-                <ActivityIndicator size="small" color={COLORS.primary} />
+                <ActivityIndicator size="large" color={COLORS.primary} />
             </View>
         );
     };
@@ -154,7 +154,7 @@ const EventListingItemScreen = () => {
         }
     };
     return (
-        <MainSafeAreaScreen>
+        <MainSafeAreaScreen >
             <View style={{
                 marginHorizontal: SIZES.S_5,
             }}>
