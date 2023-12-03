@@ -27,10 +27,10 @@ const EventHomeScreen = () => {
             }),
         );
     const exist = () => dispatch(eventActions.exitEventList());
-    const init = () => dispatch(eventActions.eventResetState());
     // selectors
     const eventsData = useSelector(getEventsSelector);
     const latestSearch = useSelector(getLatestSearchSelector);
+    console.log(latestSearch);
 
     useEffect(() => {
         enterEventListItem(1);
@@ -75,7 +75,7 @@ const EventHomeScreen = () => {
 
     const renderEvents = (item: any) => (
         <EventItem
-            onPress={() => navigateTo(EVENT_SCREEN_NAMES.EVENT_LISTING_ITEM, { item: item })}
+            onPress={() => navigateTo(EVENT_SCREEN_NAMES.EVENT_LISTING_ITEM_DETAILS, { item: item })}
             title={item.name}
             image={item.images[0].url}
             body={item?.promoter?.description}
@@ -87,24 +87,36 @@ const EventHomeScreen = () => {
     const renderLatestSearchContainer = () => (
         <View>
             <AppBoldText style={styles.text} title="Latest Search" />
-
-            <FlatList
-                horizontal
-                data={latestSearch.slice(0, 3)}
-                showsVerticalScrollIndicator={false}
-                alwaysBounceVertical={false}
-                renderItem={({ item }) => {
-                    return renderEvents(item);
-                }}
-                keyExtractor={item => `${item.id}`}
-                contentContainerStyle={{
-                    paddingBottom: 10,
-                }}
-                onEndReachedThreshold={0.1}
-                ListFooterComponentStyle={{
-                    paddingBottom: 10,
-                }}
-            />
+            {latestSearch.length > 0 ? (
+                <FlatList
+                    horizontal
+                    data={latestSearch.slice(0, 3)}
+                    showsVerticalScrollIndicator={false}
+                    alwaysBounceVertical={false}
+                    renderItem={({ item }) => {
+                        return renderEvents(item);
+                    }}
+                    keyExtractor={item => `${item.id}`}
+                    contentContainerStyle={{
+                        paddingBottom: 10,
+                    }}
+                    onEndReachedThreshold={0.1}
+                    ListFooterComponentStyle={{
+                        paddingBottom: 10,
+                    }}
+                />
+            ) : (
+                <View
+                    style={{
+                        marginVertical: SIZES.S_2,
+                        justifyContent: 'center',
+                        alignSelf: 'center',
+                        alignItems: 'center',
+                    }}
+                >
+                    <AppBodyText style={styles.text} title="No Search Found" />
+                </View>
+            )}
         </View>
     );
 
