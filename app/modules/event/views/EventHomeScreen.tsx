@@ -25,7 +25,8 @@ const EventHomeScreen = () => {
                 keyword: keyword,
             }),
         );
-    const exist = () => dispatch(eventActions.exitHome());
+    const exist = () => dispatch(eventActions.exitEventList());
+   
     // selectors
     const eventsData = useSelector(getEventsSelector);
     const latestSearch = useSelector(getLatestSearchSelector);
@@ -34,8 +35,8 @@ const EventHomeScreen = () => {
 
     useEffect(() => {
         enterHome();
-        // call api to get events // work around for now
         enterEventListItem(1);
+     
         return () => {
             exist();
         };
@@ -53,11 +54,15 @@ const EventHomeScreen = () => {
         );
     };
 
+    const goToSearch = () => {
+        navigateTo(EVENT_SCREEN_NAMES.EVENT_LISTING_ITEM)
+    }
+
     const renderHeaderContainer = () => (
         <View>
             <View style={styles.upComingEvent}>
                 <AppBoldText style={styles.text} title={'Up Coming Events'} />
-                <TouchableOpacity onPress={() => navigateTo(EVENT_SCREEN_NAMES.EVENT_LISTING_ITEM)}>
+                <TouchableOpacity onPress={goToSearch}>
                     <AppBodyText style={styles.text} title={'See All'} />
                 </TouchableOpacity>
             </View>

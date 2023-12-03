@@ -3,25 +3,23 @@ import { eventActions } from './eventActions';
 import { getEvents } from './eventApi';
 import { navigateTo, goBack } from '../../navigation/RootNavigation';
 
-// export function* eventMainRuntime(): any {
-//     while (true) {
-//         try {
-//              yield take(eventActions.enterHome);
-//             const search = yield fork(searchRuntime);
-//             yield take(eventActions.exitHome);
-//             yield cancel(search);
-//         } catch (error: any) {
-//             yield put(eventActions.eventListFailure(error.message));
-//         }
-//     }
-// }
 export function* eventMainRuntime(): any {
     while (true) {
         try {
+             yield take(eventActions.enterHome);
+            yield fork(searchRuntime);
+        } catch (error: any) {
+            yield put(eventActions.eventListFailure(error.message));
+        }
+    }
+}
+export function* searchRuntime(): any {
+    while (true) {
+        try {
             const { payload } = yield take(eventActions.enterEventList);
-             yield call(eventListFlow, payload);
-            const eventDetailsTask = yield fork(eventDetailsRuntime);
             const dropOffEventList = yield fork(eventListingDropOffRuntime);
+            const eventDetailsTask = yield fork(eventDetailsRuntime);
+            yield call(eventListFlow, payload);
             yield take(eventActions.exitEventList);
             yield cancel([eventDetailsTask,dropOffEventList]);
         } catch (error: any) {

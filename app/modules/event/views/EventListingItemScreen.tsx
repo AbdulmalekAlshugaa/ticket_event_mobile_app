@@ -49,13 +49,6 @@ const EventListingItemScreen = () => {
     const totalPages: number = useSelector(getTotalPagesSelector);
   
 
-    useEffect(() => {
-        enterEventListItem(1);
-        return () => {
-            exist(); 
-        };
-    }, []);
-
     const renderEvents = (item: any) => (
         <EventItem
             onPress={() => enterEventDetails(item)}
