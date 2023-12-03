@@ -31,6 +31,8 @@ const events = createReducer(EVENT_INIT_STATE, builder => {
             state.data._links = action.payload._links;
             state.data.page = action.payload.page;
             state.ok = true;
+        }).addCase(eventActions.latestEventSearch, (state, action) => {
+            state.latestSearch = action.payload;
         })
         .addCase(eventActions.exitEventList, state => {
             state.isLoading = false;
@@ -40,7 +42,7 @@ const events = createReducer(EVENT_INIT_STATE, builder => {
                 state.isLoading = false;
                 state.errorMessages = action.payload;
             },
-        );
+);
 
 });
 
@@ -56,6 +58,7 @@ const eventFilter = createReducer(EVENT_FILTER_INIT_STATE, builder => {
             state.includeTBD = action.payload.includeTBD;
         })
 });
+
 
 const eventsDiscovery = combineReducers({
     events,

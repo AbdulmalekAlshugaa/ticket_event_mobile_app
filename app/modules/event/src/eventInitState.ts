@@ -14,6 +14,7 @@ export const EVENT_INIT_STATE: eventsDiscovery.state = {
     ok: true,
     problem: '',
     isLoading: false,
+    latestSearch: [],
 };
 
 export const EVENT_FILTER_INIT_STATE: eventsDiscovery.eventRequest = {

@@ -7,6 +7,7 @@ export const eventActions = {
     eventListFailure: createAction<string>('EVENT/EVENT_LIST_FAILURE'),
     eventResetState: createAction('EVENT/RESET_STATE'),
     exitEventList: createAction('EVENT/EXIT_EVENT_LIST'),
+    latestEventSearch: createAction<[]>('EVENT/LATEST_EVENT_SEARCH'),
     
 
     enterEventDetails: createAction<any>('EVENT/ENTER_EVENT_DETAILS'),

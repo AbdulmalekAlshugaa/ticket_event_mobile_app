@@ -1,16 +1,20 @@
-import { View, Text, TouchableOpacity, StyleSheet, Platform } from 'react-native';
-import React, { useState } from 'react';
-import { AppIcon, AppSearch } from '../../../components';
+import { View, StyleSheet, Image, Linking, TouchableOpacity, FlatList } from 'react-native';
+import React, { useEffect } from 'react';
+import { AppBodyText, AppBoldText, AppButton, AppSearch } from '../../../components';
 import { COLORS, SIZES } from '../../main/src/mainConstants';
 import { useAppDispatch } from '../../main/src/configureStore';
 import { eventActions } from '../src/eventActions';
 import { useSelector } from 'react-redux';
-import { getEventsSelector } from '../src/eventSelectors';
-// import Carousel from 'react-native-reanimated-carousel';
+import { getEventsSelector, getLatestSearchSelector } from '../src/eventSelectors';
+import Carousel from 'react-native-reanimated-carousel';
+import EventHomeCarousel from './EventHomeCarousel';
+import { formatDateString } from '../src/eventUtils';
+import { Card } from 'react-native-paper';
+import App from 'App';
+import { navigateTo } from '../../navigation/RootNavigation';
+import { EVENT_SCREEN_NAMES } from '../src/eventConstant';
+import EventItem from './EventItem';
 
-// TODO: we have to have the same search section
-// TODO: we have to have the same filter section
-// TODO: we have to have a section to render an and render the first three events
 const EventHomeScreen = () => {
     const dispatch = useAppDispatch();
     const enterEventListItem = (page: number, countryCode?: string, keyword?: string) =>
@@ -24,62 +28,114 @@ const EventHomeScreen = () => {
         );
     const exist = () => dispatch(eventActions.exitEventList());
     const init = () => dispatch(eventActions.eventResetState());
-
+    // selectors
     const eventsData = useSelector(getEventsSelector);
+    const latestSearch = useSelector(getLatestSearchSelector);
 
-    const renderSearchContainer = () => (
-        <View style={styles.searchContainer}>
-            <AppSearch style={styles.appSearch} />
-        </View>
-    );
+    useEffect(() => {
+        enterEventListItem(1);
+        return () => {
+            exist();
+        };
+    }, []);
 
-    const renderItem = ({}: any) => {
+    const renderItem = ({ item }: any) => {
+        const date = formatDateString(item.dates.start.dateTime, 'DD MMMM, YYYY');
         return (
-            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-                <Text style={{ color: COLORS.black }}>{'kdFNJKSBDFSDFSDF'}</Text>
-            </View>
+            <EventHomeCarousel
+                eventName={item.name}
+                eventDate={date}
+                image={item.images[0].url}
+                onPress={() => {
+                    console.log('item', item);
+                }}
+            />
         );
     };
 
     const renderHeaderContainer = () => (
-        <View
-            style={{
-                flex: 1,
-            }}
-        >
-            {/* <Carousel
+        <View>
+            <View style={styles.upComingEvent}>
+                <AppBoldText style={styles.text} title={'Up Coming Events'} />
+                <TouchableOpacity onPress={() => navigateTo(EVENT_SCREEN_NAMES.EVENT_LISTING_ITEM)}>
+                    <AppBodyText style={styles.text} title={'See All'} />
+                </TouchableOpacity>
+            </View>
+            <Carousel
                 loop
                 width={SIZES.width}
                 height={SIZES.width / 2}
                 autoPlay={true}
-                data={[...new Array(6).keys()]}
+                data={eventsData}
                 scrollAnimationDuration={1000}
-                onSnapToItem={(index) => console.log('current index:', index)}
-                renderItem={({ index }) => (
-                    <View
-                        style={{
-                            flex: 1,
-                            borderWidth: 1,
-                            justifyContent: 'center',
-                        }}
-                    >
-                        <Text style={{ textAlign: 'center', fontSize: 30 }}>
-                            {index}
-                        </Text>
-                    </View>
-                )}
-            /> */}
+                onSnapToItem={index => console.log('current index:', index)}
+                renderItem={({ item }) => renderItem({ item })}
+            />
         </View>
     );
 
+    const renderEvents = (item: any) => (
+        <EventItem
+            onPress={() => enterEventDetails(item)}
+            title={item.name}
+            image={item.images[0].url}
+            body={item?.promoter?.description}
+            type={item.type}
+            country={item?._embedded?.venues[0]?.country.name}
+        />
+    );
+
+    const renderLatestSearchContainer = () => (
+        <View>
+            <AppBoldText style={styles.text} title="Latest Search" />
+
+            <FlatList
+                horizontal
+                data={eventsData}
+                showsVerticalScrollIndicator={false}
+                alwaysBounceVertical={false}
+                renderItem={({ item }) => {
+                    return renderEvents(item);
+                }}
+                keyExtractor={item => `${item.id}`}
+                contentContainerStyle={{
+                    paddingBottom: 10,
+                }}
+                onEndReachedThreshold={0.1}
+                ListFooterComponentStyle={{
+                    paddingBottom: 10,
+                }}
+            />
+        </View>
+    );
+
+    const renderMyPortfolioContainer = () => (
+        <Card style={styles.myPortfolioContainer}>
+            <Card.Content
+                style={{
+                    flexDirection: 'row',
+                    justifyContent: 'space-between',
+                }}
+            >
+                <AppBoldText style={styles.text} title={'Please check my portfolio  '} />
+                <Image style={styles.myPortfolioImage} source={require('../../../../assets/MyPortfolio.jpeg')} />
+            </Card.Content>
+            <AppButton
+                label="Visit "
+                style={{
+                    marginHorizontal: SIZES.S_5,
+                    marginVertical: SIZES.S_6,
+                }}
+                oPress={() => Linking.openURL('https://abdulmalik-rho.vercel.app/')}
+            />
+        </Card>
+    );
+
     return (
-        <View
-            style={{
-                flex: 1,
-            }}
-        >
-            {renderSearchContainer()}
+        <View style={styles.screen}>
             {renderHeaderContainer()}
+            {renderMyPortfolioContainer()}
+            {renderLatestSearchContainer()}
         </View>
     );
 };
@@ -87,38 +143,31 @@ const EventHomeScreen = () => {
 const styles = StyleSheet.create({
     screen: {
         flex: 1,
-        backgroundColor: COLORS.lightGrey,
     },
-    searchContainer: {
+    upComingEvent: {
+        marginHorizontal: SIZES.S_4,
+        marginVertical: SIZES.S_2,
         flexDirection: 'row',
         justifyContent: 'space-between',
     },
-    filterContainer: {
+    text: {
+        marginHorizontal: SIZES.S_4,
+        marginVertical: SIZES.S_2,
+    },
+    myPortfolioContainer: {
+        marginHorizontal: SIZES.S_2,
+        marginVertical: SIZES.S_2,
+        borderRadius: SIZES.S_8,
+        backgroundColor: COLORS.white,
+        elevation: SIZES.S_2,
+    },
+    myPortfolioImage: {
         width: 50,
         height: 50,
         borderRadius: SIZES.S_8,
-        backgroundColor: COLORS.lightGrey,
-        marginVertical: SIZES.S_5,
-        marginEnd: SIZES.S_2,
-        justifyContent: 'center',
-    },
-    appSearch: {
-        marginVertical: SIZES.S_5,
-        marginHorizontal: SIZES.S_5,
-        borderRadius: SIZES.S_8,
-        backgroundColor: COLORS.lightGrey,
-        flex: 1,
-    },
-    containerStyle: {
-        justifyContent: 'flex-end',
-        marginHorizontal: SIZES.S_7,
         backgroundColor: COLORS.secondary,
-    },
-    footer: {
-        paddingVertical: 20,
-        borderTopWidth: 1,
-        borderColor: '#CED0CE',
         justifyContent: 'center',
+        alignItems: 'center',
     },
 });
 

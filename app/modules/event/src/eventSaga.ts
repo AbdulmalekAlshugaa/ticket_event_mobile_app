@@ -17,11 +17,14 @@ export function* eventMainRuntime(): any {
     }
 }
 
-export function* eventListRuntime(payload: eventsDiscovery.eventRequest): any {
+export function* eventListRuntime(payload: eventsDiscovery.eventRequest) {
     while (true) {
         try {
             const response: eventsDiscovery.state = yield call(getEvents, payload);
             yield put(eventActions.eventListSuccess(response.data));
+            if (payload.keyword && payload.keyword.length > 0) {
+                yield put(eventActions.latestEventSearch(response.data._embedded.events));
+            }
             yield take(eventActions.exitEventList);
         } catch (error: any) {
             yield put(eventActions.eventListFailure(error.message));

@@ -7,6 +7,7 @@ declare namespace eventsDiscovery {
         problem: string;
         isLoading: boolean;
         errorMessages?: string;
+        latestSearch?: [];
     }
 
     interface eventRequest {

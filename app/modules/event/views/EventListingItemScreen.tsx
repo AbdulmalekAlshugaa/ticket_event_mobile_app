@@ -50,7 +50,6 @@ const EventListingItemScreen = () => {
     console.log(errorMessages);
 
     useEffect(() => {
-        enterEventListItem(page);
         return () => {
             exist();
         };

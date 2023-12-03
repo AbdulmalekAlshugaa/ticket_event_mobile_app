@@ -25,7 +25,6 @@ export const errorMessagesSelector = createSelector(eventSelector, events => {
 
 export const getErrorMessages = (state: any) => state.eventsDiscovery.events.errorMessages;
 
-
 export const getTotalPagesSelector = createSelector(eventSelector, events => {
     if (events.data && events.data.page) {
         return events.data.page.totalPages;
@@ -34,5 +33,4 @@ export const getTotalPagesSelector = createSelector(eventSelector, events => {
 });
 
 export const getEventFilterSelector = (state: any) => state.eventsDiscovery.eventFilter;
-
-
+export const getLatestSearchSelector = (state: any) => state.eventsDiscovery.events.latestSearch;

@@ -3,6 +3,7 @@ import { Provider } from 'react-redux';
 import { QueryClientProvider, QueryClient } from '@tanstack/react-query';
 import MainAppNavigation from './app/modules/navigation/MainAppNavigation';
 import store from './app/modules/main/src/configureStore';
+import 'react-native-gesture-handler'
 
 if (__DEV__) {
     import('./ReactotronConfig');
