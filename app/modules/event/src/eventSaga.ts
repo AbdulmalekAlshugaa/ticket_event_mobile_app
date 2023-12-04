@@ -17,8 +17,9 @@ export function* searchRuntime(): any {
     while (true) {
         try {
             const { payload } = yield take(eventActions.enterEventList);
-            const dropOffEventList = yield fork(eventListingDropOffRuntime);
             const eventDetailsTask = yield fork(eventDetailsRuntime);
+            const dropOffEventList = yield fork(eventListingDropOffRuntime);
+       
             yield call(eventListFlow, payload);
             yield take(eventActions.exitEventList);
             yield cancel([eventDetailsTask,dropOffEventList]);
