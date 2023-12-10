@@ -45,7 +45,6 @@ const styles = StyleSheet.create({
     marginVertical: SIZES.S_2,
     overflow: 'hidden', // Ensure that the border-radius works as expected
   },
-
   image: {
     width: '100%', // Take up 100% of the parent container's width
     aspectRatio: 16 / 9, // Adjust the aspect ratio as needed (16:9 in this example)

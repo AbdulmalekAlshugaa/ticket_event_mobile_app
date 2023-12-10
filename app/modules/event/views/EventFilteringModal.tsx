@@ -20,7 +20,7 @@ const EventFilteringModal = (props: EventFilteringModalProps) => {
     const [includeTBD, setIncludeTBD] = useState<eventsDiscovery.includeTBAOrTBD>('no');
     const [sortingValue, setSortingValue] = useState<string>('');
     const eventFilter: eventsDiscovery.eventRequest = useSelector(getEventFilterSelector);
-
+ 
     const dispatch = useAppDispatch();
     const exist = () => dispatch(eventActions.exitEventList());
     const init = () => dispatch(eventActions.eventResetState());
