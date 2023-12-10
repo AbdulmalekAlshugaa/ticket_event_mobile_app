@@ -1,5 +1,5 @@
 import { StyleSheet, Modal, Animated, TouchableOpacity, FlatList } from 'react-native';
-import React from 'react';
+import React,{useState} from 'react';
 
 import { AppBoldText, AppCustomHeader, AppIcon } from '../../../components';
 import { MainSafeAreaScreen } from '../../../modules/main/view';
@@ -12,9 +12,9 @@ interface EventCountrySelectionModalProps {
 }
 
 const EventCountrySelectionModal = (props: EventCountrySelectionModalProps) => {
-    const [visible, setVisible] = React.useState(false);
-    const [fadeAnim] = React.useState(new Animated.Value(0));
-    const [country, setCountry] = React.useState('Country');
+    const [visible, setVisible] = useState(false);
+    const [fadeAnim] = useState(new Animated.Value(0));
+    const [country, setCountry] = useState('Country');
 
     const renderCountries = (item: eventsDiscovery.country) => (
         <EventCountryItem
