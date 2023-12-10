@@ -47,8 +47,8 @@ const EventListingItemDetailsScreen = ({ route }) => {
                 <AppBoldText variant={'displaySmall'} title={item.name} />
                 <EventItemDetails title={date} body={item.dates.start.localTime} icon={'calendar'} />
                 <EventItemDetails
-                    title={item._embedded.venues[0].country.name}
-                    body={item._embedded.venues[0].city.name}
+                    title={item._embedded?.venues[0]?.country.name}
+                    body={item._embedded?.venues[0]?.city.name}
                     icon={'map'}
                 />
                 <AppBoldText style={styles.text} title={'GeneralInfo'} />

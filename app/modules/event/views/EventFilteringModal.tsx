@@ -1,8 +1,8 @@
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, TouchableOpacity } from 'react-native';
 import React, { useState } from 'react';
 import AppModal from '../../../components/AppModal';
 import { COLORS, SIZES } from '../../../modules/main/src/mainConstants';
-import { AppChip, AppBoldText, AppButton, AppIcon,AppDropDown } from '../../../components';
+import { AppChip, AppBoldText, AppButton, AppIcon, AppDropDown } from '../../../components';
 import { useAppDispatch } from '../../main/src/configureStore';
 import { eventActions } from '../src/eventActions';
 import { useSelector } from 'react-redux';
@@ -50,7 +50,18 @@ const EventFilteringModal = (props: EventFilteringModalProps) => {
             <View style={styles.iconContainer}>
                 <AppIcon onPress={() => props.hideModal()} color={COLORS.gray} name="close" size={24} />
             </View>
-            <AppBoldText title="Filtering" />
+            <View style={styles.filterContainer}>
+                <AppBoldText title="Filtering" />
+                <TouchableOpacity
+                    onPress={() => {
+                        setIncludeTBA('no');
+                        setIncludeTBD('no');
+                        setSortingValue('');
+                    }}
+                >
+                    <AppBoldText title="Reset" />
+                </TouchableOpacity>
+            </View>
         </View>
     );
 
@@ -60,7 +71,6 @@ const EventFilteringModal = (props: EventFilteringModalProps) => {
                 style={styles.button}
                 label="Apply Filter"
                 oPress={() => {
-                   
                     init();
                     exist();
                     enterProductListItem({
@@ -103,10 +113,13 @@ const EventFilteringModal = (props: EventFilteringModalProps) => {
     const renderSortingBody = () => (
         <View style={styles.sortingContainer}>
             <AppBoldText style={styles.text} title="Sort" />
-            <AppDropDown sortingValue={(sortingValue)=>{
-                setSortingValue(sortingValue);
-            }} data={EVENT_SORTING_PARAMS} placeholder={"Sort By"}  />
-          
+            <AppDropDown
+                sortingValue={sortingValue => {
+                    setSortingValue(sortingValue);
+                }}
+                data={EVENT_SORTING_PARAMS}
+                placeholder={sortingValue ? sortingValue : 'Sort By'}
+            />
         </View>
     );
 
@@ -157,8 +170,8 @@ const styles = StyleSheet.create({
         flexGrow: 1,
         marginBottom: SIZES.S_5,
     },
-    filterContainer: {},
-    sortingContainer: {},
+    filterContainer: { flexDirection: 'row', justifyContent: 'space-between', flex: 1 },
+
     filterChips: {
         flexDirection: 'row',
         flexWrap: 'wrap',
