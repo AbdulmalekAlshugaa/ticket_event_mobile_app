@@ -89,7 +89,7 @@ const EventFilteringModal = (props: EventFilteringModalProps) => {
     );
 
     const renderFiltrationBody = () => (
-        <View style={styles.filterContainer}>
+        <View>
             <AppBoldText style={styles.text} title="Filter By" />
             <View style={styles.filterChips}>
                 <AppChip

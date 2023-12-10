@@ -52,7 +52,7 @@ const EventListingItemDetailsScreen = ({ route }) => {
                     icon={'map'}
                 />
                 <AppBoldText style={styles.text} title={'GeneralInfo'} />
-                <AppBodyText variant={'bodyMedium'} title={item._embedded.venues[0].accessibleSeatingDetail} />
+                <AppBodyText variant={'bodyMedium'} title={item._embedded?.venues[0]?.accessibleSeatingDetail} />
             </View>
         );
     };
