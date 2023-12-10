@@ -3,7 +3,7 @@ import React from 'react';
 import { COLORS, SIZES } from '../../main/src/mainConstants';
 import AppBodyText from '../../../components/AppBodyText';
 import AppBoldText from '../../../components/AppBoldText';
-import { Card, Text } from 'react-native-paper';
+import { Card } from 'react-native-paper';
 
 interface EventListItemProps {
     title: string;
@@ -17,16 +17,7 @@ interface EventListItemProps {
 const EventItem = (props: EventListItemProps) => {
     const renderLeftComponent = () => (
         <View style={styles.leftComponents}>
-            <Text
-                style={{
-                    color: COLORS.white,
-                    marginStart: 10,
-                    marginTop: 5,
-                    textAlign: 'right',
-                }}
-            >
-                {props.type}
-            </Text>
+            <AppBodyText style={styles.leftText} title={props.type} />
         </View>
     );
 
@@ -88,9 +79,15 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         borderTopRightRadius: 25,
         borderBottomLeftRadius: 25,
-        backgroundColor: COLORS.primary,
+        backgroundColor: COLORS.black,
         height: 30,
     },
+    leftText:{
+        color: COLORS.white,
+        marginStart: 10,
+        marginTop: 5,
+        textAlign: 'right',
+    }
 });
 
 export default EventItem;
