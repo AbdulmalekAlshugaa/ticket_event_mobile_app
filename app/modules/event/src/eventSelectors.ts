@@ -33,4 +33,5 @@ export const getTotalPagesSelector = createSelector(eventSelector, events => {
 });
 
 export const getEventFilterSelector = (state: any) => state.eventsDiscovery.eventFilter;
+
 export const getLatestSearchSelector = (state: any) => state.eventsDiscovery.events.latestSearch;

@@ -6,7 +6,7 @@ import { navigateTo, goBack } from '../../navigation/RootNavigation';
 export function* eventMainRuntime(): any {
     while (true) {
         try {
-             yield take(eventActions.enterHome);
+            yield take(eventActions.enterHome);
             yield fork(searchRuntime);
         } catch (error: any) {
             yield put(eventActions.eventListFailure(error.message));
@@ -19,10 +19,10 @@ export function* searchRuntime(): any {
             const { payload } = yield take(eventActions.enterEventList);
             const eventDetailsTask = yield fork(eventDetailsRuntime);
             const dropOffEventList = yield fork(eventListingDropOffRuntime);
-       
+
             yield call(eventListFlow, payload);
             yield take(eventActions.exitEventList);
-            yield cancel([eventDetailsTask,dropOffEventList]);
+            yield cancel([eventDetailsTask, dropOffEventList]);
         } catch (error: any) {
             yield put(eventActions.eventListFailure(error.message));
         }
