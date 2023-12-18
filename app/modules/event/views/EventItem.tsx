@@ -1,5 +1,5 @@
 import { View, Image, StyleSheet, TouchableOpacity } from 'react-native';
-import React from 'react';
+import React, { useMemo } from 'react';
 import { COLORS, SIZES } from '../../main/src/mainConstants';
 import AppBodyText from '../../../components/AppBodyText';
 import AppBoldText from '../../../components/AppBoldText';
@@ -13,8 +13,7 @@ interface EventListItemProps {
     country: string;
     onPress?: () => void;
 }
-
-const EventItem = (props: EventListItemProps) => {
+const EventItem = React.memo((props: EventListItemProps) => {
     const renderLeftComponent = () => (
         <View style={styles.leftComponents}>
             <AppBodyText style={styles.leftText} title={props.type} />
@@ -36,7 +35,7 @@ const EventItem = (props: EventListItemProps) => {
             {renderLeftComponent()}
         </TouchableOpacity>
     );
-};
+});
 
 const styles = StyleSheet.create({
     container: {
@@ -82,12 +81,12 @@ const styles = StyleSheet.create({
         backgroundColor: COLORS.black,
         height: 30,
     },
-    leftText:{
+    leftText: {
         color: COLORS.white,
         marginStart: 10,
         marginTop: 5,
         textAlign: 'right',
-    }
+    },
 });
 
 export default EventItem;
