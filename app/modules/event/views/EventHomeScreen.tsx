@@ -26,7 +26,7 @@ const EventHomeScreen = () => {
             }),
         );
     const exist = () => dispatch(eventActions.exitEventList());
-   
+
     // selectors
     const eventsData = useSelector(getEventsSelector);
     const latestSearch = useSelector(getLatestSearchSelector);
@@ -36,7 +36,7 @@ const EventHomeScreen = () => {
     useEffect(() => {
         enterHome();
         enterEventListItem(1);
-     
+
         return () => {
             exist();
         };
@@ -55,8 +55,8 @@ const EventHomeScreen = () => {
     };
 
     const goToSearch = () => {
-        navigateTo(EVENT_SCREEN_NAMES.EVENT_LISTING_ITEM)
-    }
+        navigateTo(EVENT_SCREEN_NAMES.EVENT_LISTING_ITEM);
+    };
 
     const renderHeaderContainer = () => (
         <View>
@@ -112,12 +112,7 @@ const EventHomeScreen = () => {
                 />
             ) : (
                 <View
-                    style={{
-                        marginVertical: SIZES.S_2,
-                        justifyContent: 'center',
-                        alignSelf: 'center',
-                        alignItems: 'center',
-                    }}
+                    style={styles.noSearchFound}
                 >
                     <AppBodyText style={styles.text} title="No Search Found" />
                 </View>
@@ -183,6 +178,12 @@ const styles = StyleSheet.create({
         borderRadius: SIZES.S_8,
         backgroundColor: COLORS.secondary,
         justifyContent: 'center',
+        alignItems: 'center',
+    },
+    noSearchFound: {
+        marginVertical: SIZES.S_2,
+        justifyContent: 'center',
+        alignSelf: 'center',
         alignItems: 'center',
     },
 });
