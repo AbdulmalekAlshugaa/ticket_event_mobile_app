@@ -1,5 +1,3 @@
-[![Ceasefire Now](https://badge.techforpalestine.org/default)](https://techforpalestine.org/learn-more)
-
 # Event-App
 
 I have implemented the best practices of separation of concerns and utilized the saga pattern design to handle side effects.
