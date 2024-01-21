@@ -1,5 +1,5 @@
 import React from 'react';
-import { NavigationContainer } from '@react-navigation/native';
+import { DarkTheme, DefaultTheme, NavigationContainer } from '@react-navigation/native';
 import { navigationRef } from './RootNavigation';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { EVENT_SCREEN_NAMES } from '../event/src/eventConstant';
@@ -7,14 +7,16 @@ import { mainAppRouteOptions } from './mainScreenRoutes';
 import EventListingItemScreen from '../event/views/EventListingItemScreen';
 import EventListingItemDetailsScreen from '../event/views/EventListingItemDetailsScreen';
 import EventHomeScreen from '../event/views/EventHomeScreen';
+import { useColorScheme } from 'react-native';
 
 const Stack = createNativeStackNavigator();
 
 export default function MainAppNavigation() {
+    const colorScheme = useColorScheme();
     return (
-        <NavigationContainer ref={navigationRef}>
+        <NavigationContainer ref={navigationRef} theme={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
             <Stack.Navigator initialRouteName={EVENT_SCREEN_NAMES.EVENT_HOME_SCREEN}>
-            <Stack.Screen
+                <Stack.Screen
                     name={EVENT_SCREEN_NAMES.EVENT_HOME_SCREEN}
                     options={{
                         headerShown: true,
