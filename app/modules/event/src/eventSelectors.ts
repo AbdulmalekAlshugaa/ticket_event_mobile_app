@@ -1,4 +1,4 @@
-import { createSelector } from '@reduxjs/toolkit';
+import {createSelector} from "reselect"
 
 export const eventSelector = (state: any) => state.eventsDiscovery.events;
 
