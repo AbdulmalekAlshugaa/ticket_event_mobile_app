@@ -1,9 +1,9 @@
-import { StyleSheet, ViewStyle, TouchableOpacity, View } from 'react-native';
+import { StyleSheet, ViewStyle, TouchableOpacity, View, PressableProps } from 'react-native';
 import React from 'react';
 import { Button } from 'react-native-paper';
 import { COLORS } from '../modules/main/src/mainConstants';
 
-interface AppButtonProps {
+interface AppButtonProps extends PressableProps {
     style?: ViewStyle;
     oPress?: () => void;
     loading?: boolean;

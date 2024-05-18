@@ -3,7 +3,7 @@ import { eventActions } from './eventActions';
 import { getEvents } from './eventApi';
 import { navigateTo, goBack } from '../../navigation/RootNavigation';
 
-export function* eventMainRuntime(): any {
+export function* eventMainRuntime() {
     while (true) {
         try {
             yield take(eventActions.enterHome);

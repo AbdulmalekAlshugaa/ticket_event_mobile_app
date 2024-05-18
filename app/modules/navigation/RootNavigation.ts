@@ -13,3 +13,18 @@ export function goBack(): void {
         navigationRef.goBack();
     }
 }
+
+export function resetRoot(name: string): void {
+    if (navigationRef.isReady()) {
+        navigationRef.resetRoot({
+            index: 0,
+            routes: [{ name }],
+        });
+    }
+}
+
+export function getCurrentRoute(): any {
+    if (navigationRef.isReady()) {
+        return navigationRef.getCurrentRoute();
+    }
+}

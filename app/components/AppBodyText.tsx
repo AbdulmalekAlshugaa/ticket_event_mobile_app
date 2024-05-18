@@ -1,9 +1,9 @@
-import { StyleSheet, ViewStyle } from 'react-native';
+import { StyleSheet } from 'react-native';
 import React from 'react';
 import { Text } from 'react-native-paper';
 import { VariantProp } from 'react-native-paper/lib/typescript/components/Typography/types';
 
-interface AppBoldTextProps {
+interface AppBoldTextProps extends React.ComponentProps<typeof Text> {
     title: string;
     style?: any;
     variant?: VariantProp<string>;
