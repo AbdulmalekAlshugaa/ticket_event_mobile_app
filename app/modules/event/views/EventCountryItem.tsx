@@ -17,7 +17,7 @@ const EventCountryItem = (props: EventListItemProps) => {
             <Card style={styles.container}>
                 <Card.Content style={styles.bodyContent}>
                     <AppBoldText style={styles.titleText} title={props.countryName} />
-                    <AppBodyText style={styles.titleText} title={props.countryCode} />
+                    <AppBodyText numberOfLines={1} style={styles.titleText} title={props.countryCode} />
                 </Card.Content>
             </Card>
         </TouchableOpacity>

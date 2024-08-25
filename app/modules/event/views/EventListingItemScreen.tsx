@@ -1,5 +1,5 @@
-import { View, StyleSheet, FlatList, RefreshControl, TouchableOpacity } from 'react-native';
-import { useEffect, useState } from 'react';
+import { View, StyleSheet, FlatList, RefreshControl, TouchableOpacity, Animated } from 'react-native';
+import { useEffect, useRef, useState } from 'react';
 import { COLORS, SIZES } from '../../main/src/mainConstants';
 import AppSearch from '../../../components/AppSearch';
 import EventItem from './EventItem';
@@ -20,11 +20,17 @@ import { ActivityIndicator } from 'react-native-paper';
 import { useDebounce } from '../../../modules/main/hooks/useDebounce';
 import EventFilteringModal from './EventFilteringModal';
 
+const ITEM_SIZE = 150; // estimate size of each item
+
 const EventListingItemScreen = () => {
     const dispatch = useAppDispatch();
     const [page, setPage] = useState(1);
     const [countryCode, setCountryCode] = useState('');
     const [isModalVisible, setModalVisible] = useState(false);
+
+    // Animation
+    const scrollY = useRef(new Animated.Value(0)).current;
+    console.log('scrollY', scrollY);
 
     // Actions
     const enterEventListItem = (page: number, countryCode?: string, keyword?: string) =>
@@ -47,18 +53,33 @@ const EventListingItemScreen = () => {
     const getError = useSelector(getErrorMessages);
     const errorMessages: string = useSelector(errorMessagesSelector);
     const totalPages: number = useSelector(getTotalPagesSelector);
-  
 
-    const renderEvents = (item: any) => (
-        <EventItem
-            onPress={() => enterEventDetails(item)}
-            title={item.name}
-            image={item.images[0].url}
-            body={item?.promoter?.description}
-            type={item.type}
-            country={item?._embedded?.venues[0]?.country.name}
-        />
-    );
+    const renderEvents = (index: number, item: any) => {
+        const inputRange = [-1, 0, ITEM_SIZE * index, ITEM_SIZE * (index + 2)];
+
+        const scale = scrollY.interpolate({
+            inputRange,
+            outputRange: [1, 1, 1, 0],
+        });
+        return (
+            <Animated.View
+                style={{
+                    transform: [{ scale }],
+                    marginHorizontal: SIZES.S_5,
+                    marginVertical: SIZES.S_2,
+                }}
+            >
+                <EventItem
+                    title={item.name}
+                    body={item.description}
+                    image={item.images[0].url}
+                    type={item.classifications[0].segment.name}
+                    country={item._embedded.venues[0].country.name}
+                    onPress={() => enterEventDetails(item)}
+                />
+            </Animated.View>
+        );
+    };
     const renderCountrySelection = () => (
         <EventCountrySelectionModal
             countryCode={(countryCode: string) => {
@@ -113,14 +134,17 @@ const EventListingItemScreen = () => {
     }, 700); // delay in ms
 
     const renderEventsList = () => (
-        <FlatList
+        <Animated.FlatList
             data={eventsData}
+            onScroll={Animated.event([{ nativeEvent: { contentOffset: { y: scrollY } } }], {
+                useNativeDriver: true,
+            })}
             showsVerticalScrollIndicator={false}
             alwaysBounceVertical={false}
-            renderItem={({ item }) => {
-                return renderEvents(item);
+            renderItem={({ index, item }) => {
+                return renderEvents(index, item);
             }}
-            keyExtractor={item => `${item.id}`}
+            keyExtractor={item => `${item.id} ${item.name}`}
             onEndReached={handleOnEndReached}
             contentContainerStyle={{
                 paddingBottom: 10,
@@ -154,15 +178,17 @@ const EventListingItemScreen = () => {
         }
     };
     return (
-        <MainSafeAreaScreen >
-            <View style={{
-                marginHorizontal: SIZES.S_5,
-            }}>
-            <AppCustomHeader onPress={dropOff}  title={'Search '} icon="arrow-left" />
+        <MainSafeAreaScreen>
+            <View
+                style={{
+                    marginHorizontal: SIZES.S_5,
+                }}
+            >
+                <AppCustomHeader onPress={dropOff} title={'Search '} icon="arrow-left" />
             </View>
 
-            {renderFilterModal()}
             {renderSearchContainer()}
+            {renderFilterModal()}
             {renderCountrySelection()}
             {renderError()}
             {isLoading && page === 1 ? <MainLoadingScreen /> : <View>{renderEventsList()}</View>}
